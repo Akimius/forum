@@ -13,19 +13,18 @@
                                 {{ session('status') }}
                             </div>
                         @endif
-
                             @foreach($threads as $thread)
-
                                 <atricle>
                                     <h4>
+                                        <a href="{{$thread->path()}}">
                                         {{$thread->title}}
+                                        </a>
                                     </h4>
                                     <div class="body">
                                         {{$thread->body}}
                                     </div>
                                 </atricle>
                                 <hr>
-
                             @endforeach
                     </div>
                 </div>
