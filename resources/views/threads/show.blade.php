@@ -6,8 +6,12 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
+                        <a href="#">
+                            {{$thread->owner->name}}
+                        </a>
+                        posted:
                         <strong>
-                            {{$thread->title}}
+                             {{$thread->title}}
                         </strong>
                     </div>
 
@@ -24,18 +28,7 @@
 
                 @foreach($thread->replies as $reply)
 
-                <div class="card-header">
-                    <a href="">
-                        {{$reply->owner->name}}
-                    </a>
-                         said ... {{$reply->created_at->diffForHumans()}}
-                </div>
-
-                <div class="card">
-                    <div class="card-body">
-                        {{$reply->body}}
-                    </div>
-                </div>
+                    @include('threads.reply')
 
                 @endforeach
             </div>
