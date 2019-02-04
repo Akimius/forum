@@ -86,6 +86,7 @@
 
                 <div class="links">
                     <a href="{{ route('threads.index') }}">All threads</a>
+                    <a href="{{ route('threads.create') }}">Create a thread</a>
                 </div>
             </div>
         </div>
