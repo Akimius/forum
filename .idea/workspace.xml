@@ -2,24 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="50dcf308-6cdf-40e0-bbf0-a9b4318e8245" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/forum.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/forum.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/RepliesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/RepliesController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ThreadsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ThreadsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Thread.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Thread.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/factories/UserFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/UserFactory.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_01_06_150847_create_threads_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_01_06_150847_create_threads_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/phpunit.xml" beforeDir="false" afterPath="$PROJECT_DIR$/phpunit.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/welcome.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/welcome.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tests/Feature/CreateThreadsTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/CreateThreadsTest.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tests/Feature/ParticipateInForumTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/ParticipateInForumTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/Feature/ReadThreadsTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Feature/ReadThreadsTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/Unit/ThreadTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Unit/ThreadTest.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -27,7 +15,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings" doNotAsk="true">
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
   </component>
   <component name="DatabaseView">
@@ -64,6 +52,13 @@
         <item name="forum_db: schema" type="76f4a085:MysqlImplModel$Schema" />
         <item name="threads: table" type="285a2a93:MysqlImplModel$Table" />
       </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="forum_db@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="forum_db: schema" type="76f4a085:MysqlImplModel$Schema" />
+        <item name="users: table" type="285a2a93:MysqlImplModel$Table" />
+      </path>
     </expand>
     <select />
   </component>
@@ -81,17 +76,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/web.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="30" />
+            <state relative-caret-position="315">
+              <caret line="30" selection-start-line="30" selection-end-line="30" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/RepliesController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="15" column="38" selection-start-line="15" selection-start-column="38" selection-end-line="15" selection-end-column="38" />
+            <state relative-caret-position="459">
+              <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
               <folding>
                 <element signature="e#40#55#0#PHP" expanded="true" />
               </folding>
@@ -102,8 +97,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ThreadsController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="253">
-              <caret line="59" column="29" lean-forward="true" selection-start-line="59" selection-start-column="29" selection-end-line="59" selection-end-column="29" />
+            <state relative-caret-position="55">
+              <caret line="45" column="1" selection-start-line="45" selection-start-column="1" selection-end-line="49" selection-end-column="11" />
               <folding>
                 <element signature="e#40#55#0#PHP" expanded="true" />
               </folding>
@@ -111,11 +106,23 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tests/Feature/ParticipateInForumTest.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="15" column="19" selection-start-line="15" selection-start-column="19" selection-end-line="15" selection-end-column="19" />
+            <state relative-caret-position="363">
+              <caret line="43" column="40" selection-start-line="43" selection-start-column="40" selection-end-line="43" selection-end-column="40" />
+              <folding>
+                <element signature="e#33#86#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tests/Feature/CreateThreadsTest.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="458">
+              <caret line="81" lean-forward="true" selection-start-line="81" selection-end-line="81" />
               <folding>
                 <element signature="e#33#86#0#PHP" expanded="true" />
               </folding>
@@ -126,17 +133,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Thread.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="190">
-              <caret line="12" column="61" lean-forward="true" selection-start-line="12" selection-start-column="8" selection-end-line="12" selection-end-column="61" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/threads/create.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
+            <state relative-caret-position="210">
+              <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
             </state>
           </provider>
         </entry>
@@ -181,13 +179,13 @@
         <option value="$PROJECT_DIR$/database/migrations/2019_02_03_151207_create_channels_table.php" />
         <option value="$PROJECT_DIR$/tests/Unit/ThreadTest.php" />
         <option value="$PROJECT_DIR$/app/Thread.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/ThreadsController.php" />
-        <option value="$PROJECT_DIR$/tests/Feature/CreateThreadsTest.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/RepliesController.php" />
         <option value="$PROJECT_DIR$/tests/Feature/ReadThreadsTest.php" />
         <option value="$PROJECT_DIR$/routes/web.php" />
         <option value="$APPLICATION_CONFIG_DIR$/consoles/.datagrid/cell" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/ThreadsController.php" />
+        <option value="$PROJECT_DIR$/tests/Feature/CreateThreadsTest.php" />
         <option value="$PROJECT_DIR$/tests/Feature/ParticipateInForumTest.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/RepliesController.php" />
       </list>
     </option>
   </component>
@@ -300,7 +298,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -389,9 +386,11 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="Constants" value="true" />
     <property name="database.console.LAST_STATE" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="yarn" />
@@ -414,25 +413,25 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="PHPUnit.ParticipateInForumTest.unauthenticated_users_may_not_add_replies">
-    <configuration name="ParticipateInForumTest.unauthenticated_users_may_not_add_replies" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
-      <TestRunner class="Tests\Feature\ParticipateInForumTest" file="$PROJECT_DIR$/tests/Feature/ParticipateInForumTest.php" method="unauthenticated_users_may_not_add_replies" scope="Method" />
+  <component name="RunManager" selected="PHPUnit.ParticipateInForumTest.a_reply_requires_a_body">
+    <configuration name="CreateThreadsTest" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="Tests\Feature\CreateThreadsTest" file="$PROJECT_DIR$/tests/Feature/CreateThreadsTest.php" scope="Class" />
       <method v="2" />
     </configuration>
-    <configuration name="ReadThreadsTest" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
-      <TestRunner class="Tests\Feature\ReadThreadsTest" file="$PROJECT_DIR$/tests/Feature/ReadThreadsTest.php" scope="Class" />
+    <configuration name="CreateThreadsTest.a_thread_requires_a_body" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="Tests\Feature\CreateThreadsTest" file="$PROJECT_DIR$/tests/Feature/CreateThreadsTest.php" method="a_thread_requires_a_body" scope="Method" />
       <method v="2" />
     </configuration>
-    <configuration name="ReadThreadsTest.a_user_can_read_a_single_thread" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
-      <TestRunner class="Tests\Feature\ReadThreadsTest" file="$PROJECT_DIR$/tests/Feature/ReadThreadsTest.php" method="a_user_can_read_a_single_thread" scope="Method" />
+    <configuration name="CreateThreadsTest.a_thread_requires_a_title" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="Tests\Feature\CreateThreadsTest" file="$PROJECT_DIR$/tests/Feature/CreateThreadsTest.php" method="a_thread_requires_a_title" scope="Method" />
       <method v="2" />
     </configuration>
-    <configuration name="ReadThreadsTest.a_user_can_read_replies_associated_with_thread" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
-      <TestRunner class="Tests\Feature\ReadThreadsTest" file="$PROJECT_DIR$/tests/Feature/ReadThreadsTest.php" method="a_user_can_read_replies_associated_with_thread" scope="Method" />
+    <configuration name="CreateThreadsTest.a_thread_requires_a_valid_channel" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="Tests\Feature\CreateThreadsTest" file="$PROJECT_DIR$/tests/Feature/CreateThreadsTest.php" method="a_thread_requires_a_valid_channel" scope="Method" />
       <method v="2" />
     </configuration>
-    <configuration name="ReadThreadsTest.a_user_can_view_all_threads" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
-      <TestRunner class="Tests\Feature\ReadThreadsTest" file="$PROJECT_DIR$/tests/Feature/ReadThreadsTest.php" method="a_user_can_view_all_threads" scope="Method" />
+    <configuration name="ParticipateInForumTest.a_reply_requires_a_body" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="Tests\Feature\ParticipateInForumTest" file="$PROJECT_DIR$/tests/Feature/ParticipateInForumTest.php" method="a_reply_requires_a_body" scope="Method" />
       <method v="2" />
     </configuration>
     <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
@@ -441,19 +440,19 @@
     </configuration>
     <list>
       <item itemvalue="PHPUnit.phpunit.xml" />
-      <item itemvalue="PHPUnit.ReadThreadsTest.a_user_can_read_a_single_thread" />
-      <item itemvalue="PHPUnit.ReadThreadsTest" />
-      <item itemvalue="PHPUnit.ReadThreadsTest.a_user_can_view_all_threads" />
-      <item itemvalue="PHPUnit.ReadThreadsTest.a_user_can_read_replies_associated_with_thread" />
-      <item itemvalue="PHPUnit.ParticipateInForumTest.unauthenticated_users_may_not_add_replies" />
+      <item itemvalue="PHPUnit.CreateThreadsTest.a_thread_requires_a_title" />
+      <item itemvalue="PHPUnit.CreateThreadsTest" />
+      <item itemvalue="PHPUnit.CreateThreadsTest.a_thread_requires_a_body" />
+      <item itemvalue="PHPUnit.CreateThreadsTest.a_thread_requires_a_valid_channel" />
+      <item itemvalue="PHPUnit.ParticipateInForumTest.a_reply_requires_a_body" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="PHPUnit.ParticipateInForumTest.unauthenticated_users_may_not_add_replies" />
-        <item itemvalue="PHPUnit.ReadThreadsTest.a_user_can_read_replies_associated_with_thread" />
-        <item itemvalue="PHPUnit.ReadThreadsTest.a_user_can_read_a_single_thread" />
-        <item itemvalue="PHPUnit.ReadThreadsTest.a_user_can_view_all_threads" />
-        <item itemvalue="PHPUnit.ReadThreadsTest" />
+        <item itemvalue="PHPUnit.ParticipateInForumTest.a_reply_requires_a_body" />
+        <item itemvalue="PHPUnit.CreateThreadsTest.a_thread_requires_a_valid_channel" />
+        <item itemvalue="PHPUnit.CreateThreadsTest.a_thread_requires_a_body" />
+        <item itemvalue="PHPUnit.CreateThreadsTest" />
+        <item itemvalue="PHPUnit.CreateThreadsTest.a_thread_requires_a_title" />
       </list>
     </recent_temporary>
   </component>
@@ -477,61 +476,63 @@
       <workItem from="1548962952063" duration="5428000" />
       <workItem from="1549190077108" duration="3739000" />
       <workItem from="1549199383646" duration="6077000" />
-      <workItem from="1549308947478" duration="4871000" />
+      <workItem from="1549308947478" duration="5182000" />
+      <workItem from="1549394979022" duration="5529000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="ReadThreadsTest_a_user_can_read_a_single_thread - 2019.02.04 at 22h 49m 32s.xml">
-      <configuration name="ReadThreadsTest.a_user_can_read_a_single_thread" configurationId="PHPUnitRunConfigurationType" />
+    <history-entry file="CreateThreadsTest_a_thread_requires_a_valid_channel - 2019.02.05 at 22h 37m 32s.xml">
+      <configuration name="CreateThreadsTest.a_thread_requires_a_valid_channel" configurationId="PHPUnitRunConfigurationType" />
     </history-entry>
-    <history-entry file="ReadThreadsTest_a_user_can_read_a_single_thread - 2019.02.04 at 22h 50m 34s.xml">
-      <configuration name="ReadThreadsTest.a_user_can_read_a_single_thread" configurationId="PHPUnitRunConfigurationType" />
+    <history-entry file="CreateThreadsTest_a_thread_requires_a_valid_channel - 2019.02.05 at 22h 37m 42s.xml">
+      <configuration name="CreateThreadsTest.a_thread_requires_a_valid_channel" configurationId="PHPUnitRunConfigurationType" />
     </history-entry>
-    <history-entry file="ReadThreadsTest_a_user_can_view_all_threads - 2019.02.04 at 22h 51m 16s.xml">
-      <configuration name="ReadThreadsTest.a_user_can_view_all_threads" configurationId="PHPUnitRunConfigurationType" />
+    <history-entry file="CreateThreadsTest_a_thread_requires_a_valid_channel - 2019.02.05 at 22h 38m 51s.xml">
+      <configuration name="CreateThreadsTest.a_thread_requires_a_valid_channel" configurationId="PHPUnitRunConfigurationType" />
     </history-entry>
-    <history-entry file="ReadThreadsTest_a_user_can_view_all_threads - 2019.02.04 at 22h 52m 54s.xml">
-      <configuration name="ReadThreadsTest.a_user_can_view_all_threads" configurationId="PHPUnitRunConfigurationType" />
+    <history-entry file="CreateThreadsTest_a_thread_requires_a_valid_channel - 2019.02.05 at 22h 39m 20s.xml">
+      <configuration name="CreateThreadsTest.a_thread_requires_a_valid_channel" configurationId="PHPUnitRunConfigurationType" />
     </history-entry>
-    <history-entry file="ReadThreadsTest_a_user_can_read_a_single_thread - 2019.02.04 at 22h 53m 13s.xml">
-      <configuration name="ReadThreadsTest.a_user_can_read_a_single_thread" configurationId="PHPUnitRunConfigurationType" />
+    <history-entry file="CreateThreadsTest_a_thread_requires_a_valid_channel - 2019.02.05 at 22h 39m 26s.xml">
+      <configuration name="CreateThreadsTest.a_thread_requires_a_valid_channel" configurationId="PHPUnitRunConfigurationType" />
     </history-entry>
-    <history-entry file="ReadThreadsTest_a_user_can_read_a_single_thread - 2019.02.04 at 22h 53m 50s.xml">
-      <configuration name="ReadThreadsTest.a_user_can_read_a_single_thread" configurationId="PHPUnitRunConfigurationType" />
+    <history-entry file="CreateThreadsTest_a_thread_requires_a_valid_channel - 2019.02.05 at 22h 39m 32s.xml">
+      <configuration name="CreateThreadsTest.a_thread_requires_a_valid_channel" configurationId="PHPUnitRunConfigurationType" />
     </history-entry>
-    <history-entry file="ReadThreadsTest_a_user_can_read_replies_associated_with_thread - 2019.02.04 at 22h 54m 18s.xml">
-      <configuration name="ReadThreadsTest.a_user_can_read_replies_associated_with_thread" configurationId="PHPUnitRunConfigurationType" />
+    <history-entry file="CreateThreadsTest_a_thread_requires_a_valid_channel - 2019.02.05 at 22h 39m 38s.xml">
+      <configuration name="CreateThreadsTest.a_thread_requires_a_valid_channel" configurationId="PHPUnitRunConfigurationType" />
     </history-entry>
-    <history-entry file="ParticipateInForumTest_unauthenticated_users_may_not_add_replies - 2019.02.04 at 22h 56m 20s.xml">
-      <configuration name="ParticipateInForumTest.unauthenticated_users_may_not_add_replies" configurationId="PHPUnitRunConfigurationType" />
+    <history-entry file="ParticipateInForumTest_a_reply_requires_a_body - 2019.02.05 at 22h 44m 50s.xml">
+      <configuration name="ParticipateInForumTest.a_reply_requires_a_body" configurationId="PHPUnitRunConfigurationType" />
     </history-entry>
-    <history-entry file="ParticipateInForumTest_unauthenticated_users_may_not_add_replies - 2019.02.04 at 22h 57m 50s.xml">
-      <configuration name="ParticipateInForumTest.unauthenticated_users_may_not_add_replies" configurationId="PHPUnitRunConfigurationType" />
+    <history-entry file="ParticipateInForumTest_a_reply_requires_a_body - 2019.02.05 at 22h 47m 13s.xml">
+      <configuration name="ParticipateInForumTest.a_reply_requires_a_body" configurationId="PHPUnitRunConfigurationType" />
     </history-entry>
-    <history-entry file="ParticipateInForumTest_unauthenticated_users_may_not_add_replies - 2019.02.04 at 23h 03m 26s.xml">
-      <configuration name="ParticipateInForumTest.unauthenticated_users_may_not_add_replies" configurationId="PHPUnitRunConfigurationType" />
+    <history-entry file="ParticipateInForumTest_a_reply_requires_a_body - 2019.02.05 at 22h 50m 12s.xml">
+      <configuration name="ParticipateInForumTest.a_reply_requires_a_body" configurationId="PHPUnitRunConfigurationType" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="43183000" />
+    <option name="totallyTimeSpent" value="49023000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20254566" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20475927" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.46051168" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.39933258" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.30367073" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.67296994" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Database Changes" order="7" weight="0.32925472" />
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32925472" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="9" sideWeight="0.4997233" visible="true" weight="0.378198" />
+      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.4997233" weight="0.37708566" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5002767" side_tool="true" weight="0.3303671" />
       <window_info anchor="bottom" id="Database Console" order="11" weight="0.32925472" />
       <window_info anchor="bottom" id="Messages" order="12" />
@@ -569,16 +570,38 @@
         </entry>
       </map>
     </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list />
+          </value>
+        </entry>
+        <entry key="User">
+          <value>
+            <list />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
       <configuration name="PhpLocalRunConfigurationType">
         <watch expression="$value" language="PHP" />
       </configuration>
+      <configuration name="PHPUnitRunConfigurationType">
+        <watch expression="$thread" language="PHP" />
+      </configuration>
     </watches-manager>
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="watch">
+      <expression>
+        <expression-string>$thread</expression-string>
+        <language-id>PHP</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
       <expression>
         <expression-string>$value</expression-string>
         <language-id>PHP</language-id>
@@ -706,33 +729,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/threads/create.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/RepliesController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="15" column="38" selection-start-line="15" selection-start-column="38" selection-end-line="15" selection-end-column="38" />
-          <folding>
-            <element signature="e#40#55#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/Feature/CreateThreadsTest.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="522">
-          <caret line="33" lean-forward="true" selection-start-line="33" selection-end-line="33" />
-          <folding>
-            <element signature="e#33#86#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tests/Unit/ThreadTest.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="455">
@@ -740,13 +736,6 @@
           <folding>
             <element signature="e#30#43#0#PHP" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Thread.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="12" column="61" lean-forward="true" selection-start-line="12" selection-start-column="8" selection-end-line="12" selection-end-column="61" />
         </state>
       </provider>
     </entry>
@@ -760,13 +749,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ThreadsController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="59" column="29" lean-forward="true" selection-start-line="59" selection-start-column="29" selection-end-line="59" selection-end-column="29" />
-          <folding>
-            <element signature="e#40#55#0#PHP" expanded="true" />
-          </folding>
+    <entry file="das://f5f9e0d3-da5a-41c6-b432-ab5c44c20899/schema/forum_db/table/users">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
         </state>
       </provider>
     </entry>
@@ -777,26 +763,63 @@
         </state>
       </provider>
     </entry>
-    <entry file="das://f5f9e0d3-da5a-41c6-b432-ab5c44c20899/schema/forum_db/table/users">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
+    <entry file="file://$PROJECT_DIR$/routes/web.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="30" selection-start-line="30" selection-end-line="30" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/web.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/threads/create.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="30" />
+        <state relative-caret-position="120">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Thread.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/Feature/CreateThreadsTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="458">
+          <caret line="81" lean-forward="true" selection-start-line="81" selection-end-line="81" />
+          <folding>
+            <element signature="e#33#86#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tests/Feature/ParticipateInForumTest.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="15" column="19" selection-start-line="15" selection-start-column="19" selection-end-line="15" selection-end-column="19" />
+        <state relative-caret-position="363">
+          <caret line="43" column="40" selection-start-line="43" selection-start-column="40" selection-end-line="43" selection-end-column="40" />
           <folding>
             <element signature="e#33#86#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ThreadsController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="55">
+          <caret line="45" column="1" selection-start-line="45" selection-start-column="1" selection-end-line="49" selection-end-column="11" />
+          <folding>
+            <element signature="e#40#55#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/RepliesController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
+          <folding>
+            <element signature="e#40#55#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
