@@ -14,18 +14,44 @@
                             </div>
                         @endif
 
-                            <form method="POST" action="/threads">
+                            <form method="POST" action="{{route('threads.store')}}">
                                 @csrf
                                 <div class="form-group">
                                     <label for="title">Title:</label>
-                                    <input type="text" class="form-control" id="title" name="title" placeholder="Title here">
+                                    <input type="text" value="{{old('title')}}" class="form-control"
+                                           id="title" name="title" placeholder="Title here" required>
                                 </div>
+
+                                <div class="form-group">
+                                    <label for="channelName">Select channel:</label>
+                                    <select class="form-control" id="channelName" name="channel_id" required>
+                                        <option value="">Choose one ...</option>
+                                        @foreach($channels as $channel)
+                                            <option value="{{$channel->id}}"
+                                                    {{old('channel_id') == $channel->id ? 'selected' : ''}}>
+                                                {{$channel->name}}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
                                 <div class="form-group">
                                     <label for="body">Body:</label>
                                     <textarea placeholder="Thread description here" rows="8" name="body" id="body"
-                                              class="form-control"></textarea>
+                                              class="form-control" required>{{old('body')}}</textarea>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Publish a thread</button>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary">Publish a thread</button>
+                                </div>
+                                <div class="form-group">
+                                    @if(count($errors))
+                                        <ul class="alert alert-danger">
+                                            @foreach($errors->all() as $error)
+                                                <li>{{$error}}</li>
+                                            @endforeach
+                                        </ul>
+                                    @endif
+                                </div>
                             </form>
                     </div>
                 </div>
