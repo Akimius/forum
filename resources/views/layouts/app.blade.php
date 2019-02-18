@@ -60,7 +60,8 @@
                                     @if (auth()->check())
                                         <a class="dropdown-item" href="/threads?by={{ auth()->user()->name }}">My Threads</a>
                                     @endif
-                                </div>
+                                    <a class="dropdown-item" href="/threads?popular=1">Popular Threads</a>
+                    </div>
 
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
