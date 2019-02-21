@@ -28,6 +28,7 @@
                 @include('threads.reply')
 
             @endforeach
+
         <div class="level">
             {{ $replies->links() }}
         </div>

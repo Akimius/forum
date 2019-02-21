@@ -9,11 +9,12 @@ class ThreadFilters extends Filters
      * @var array
      */
     protected $filters = ['by', 'popular'];
+
     /**
      * Filter the query by a given username.
      *
      * @param  string $username
-     * @return Builder
+     * @return \Illuminate\Database\Eloquent\Builder
      */
     protected function by($username)
     {
@@ -24,6 +25,7 @@ class ThreadFilters extends Filters
     protected function popular()
     {
         $this->builder->getQuery()->orders = [];
+
         return $this->builder->orderBy('replies_count', 'desc');
     }
 }
