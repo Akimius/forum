@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Favorite;
 use App\Reply;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -17,10 +18,14 @@ class FavoritesController extends Controller
 
     public function store(Reply $reply)
     {
-        return DB::table('favorites')->insert([
-            'user_id' => auth()->id(),
-            'favorited_id' => $reply->id,
-            'favorited_type' => get_class($reply)
-        ]);
+//        Favorite::create([
+//            'user_id' => auth()->id(),
+//            'favorited_id' => $reply->id,
+//            'favorited_type' => get_class($reply)
+//        ]);
+
+        // Due to polymorphic relations, may do like this
+
+        return $reply->favorite(); // extracted to a model
     }
 }
