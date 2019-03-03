@@ -26,6 +26,8 @@ class FavoritesController extends Controller
 
         // Due to polymorphic relations, may do like this
 
-        return $reply->favorite(); // extracted to a model
+         $reply->favorite(); // extracted to a model
+
+        return back();
     }
 }
