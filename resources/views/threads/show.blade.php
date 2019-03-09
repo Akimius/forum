@@ -3,18 +3,27 @@
 @section('content')
 <div class="container">
     <div class="row">
-
         <div class="col-md-8">
-
             <div class="card">
                 <div class="card-header">
-                    <a href="#">
-                        {{$thread->owner->name}}
-                    </a>
-                    posted:
-                    <strong>
-                         {{$thread->title}}
-                    </strong>
+                    <div class="level">
+                        <span class="flex">
+                            <a href="{{route('profile', $thread->owner)}}">
+                                {{$thread->owner->name}}
+                            </a>
+                            posted:
+                            <strong>
+                                {{$thread->title}}
+                            </strong>
+                        </span>
+
+                        <form action="{{$thread->path()}}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+
+                    </div>
                 </div>
 
                 <div class="card-body">
@@ -22,11 +31,8 @@
                 </div>
             </div>
 
-
             @foreach($thread->replies as $reply)
-
                 @include('threads.reply')
-
             @endforeach
 
         <div class="level">

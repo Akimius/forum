@@ -2,6 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\Reply;
+use App\Thread;
+use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -76,6 +79,44 @@ class CreateThreadsTest extends TestCase
 
         $this->publishThread(['channel_id' => 3])
             ->assertSessionHasErrors('channel_id');
+    }
+
+    /** @test */
+    function a_thread_can_be_deleted()
+    {
+        $this->actingAs(factory(User::class)->create());
+
+        $thread = factory(Thread::class)->create();
+        $reply = factory(Reply::class)->create(['thread_id' => $thread->id]);
+
+        $response =  $this->json('DELETE', $thread->path());
+
+        $response->assertStatus(204);
+
+        $this->assertDatabaseMissing('threads', [
+            'id' => $thread->id
+        ]);
+
+        $this->assertDatabaseMissing('replies', [
+            'id' => $reply->id
+        ]);
+
+    }
+
+    /** @test */
+    function guests_cannot_delete_threads()
+    {
+        $this->withExceptionHandling();
+
+        // User is not signed id
+
+        $thread = factory(Thread::class)->create();
+
+        $response =  $this->delete($thread->path());
+
+        $response->assertRedirect('/login');
+
+
     }
 
 }
