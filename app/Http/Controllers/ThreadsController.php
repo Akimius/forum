@@ -120,6 +120,13 @@ class ThreadsController extends Controller
     {
         //$thread->replies()->delete(); Will be deleted at deleting event, see Thread::boot()
 
+        if ($thread->user_id != auth()->id()) {
+            if (request()->wantsJson()) {
+                return response(['status' => 'Permission Denied'], 403);
+            }
+            return redirect()->route('/login');
+        }
+
         $thread->delete();
 
         if (request()->wantsJson()){

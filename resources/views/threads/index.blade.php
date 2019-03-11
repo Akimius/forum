@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                        @foreach($threads as $thread)
+                        @forelse($threads as $thread)
                             <atricle>
 
                                 <div class="level">
@@ -34,7 +34,11 @@
                                 </div>
                             </atricle>
                             <hr>
-                        @endforeach
+                            @empty
+
+                            <p>There are no relevant results at this time</p>
+
+                        @endforelse
                 </div>
             </div>
         </div>
