@@ -18,7 +18,8 @@
                     </a>
                     posted:
                     <strong>
-                        {{$thread->title}} ... {{$thread->created_at->diffForHumans()}}
+                        <a href="{{$thread->path()}}">{{$thread->title}}</a>
+                        ... {{$thread->created_at->diffForHumans()}}
                     </strong>
                 </div>
 

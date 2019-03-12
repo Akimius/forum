@@ -82,11 +82,12 @@ class CreateThreadsTest extends TestCase
     }
 
     /** @test */
-    function a_thread_can_be_deleted()
+    function authorized_users_can_delete_threads()
     {
         $this->actingAs(factory(User::class)->create());
 
-        $thread = factory(Thread::class)->create();
+        $thread = factory(Thread::class)->create(['user_id' => auth()->id()]);
+
         $reply = factory(Reply::class)->create(['thread_id' => $thread->id]);
 
         $response =  $this->json('DELETE', $thread->path());
@@ -109,16 +110,14 @@ class CreateThreadsTest extends TestCase
         $this->withExceptionHandling();
 
         // User is not signed id
-
         $thread = factory(Thread::class)->create();
 
         $this->delete($thread->path())
             ->assertRedirect('/login');
 
         $this->actingAs(factory(User::class)->create());
-
         $this->delete($thread->path())
-            ->assertRedirect('/login');
+            ->assertStatus(403);
     }
 
 }
