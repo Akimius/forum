@@ -25,11 +25,11 @@ class ProfilesTest extends TestCase
     /** @test */
     function profiles_display_all_threads_created_by_associated_user()
     {
-        $user = factory(User::class)->create();
+        $this->actingAs(factory(User::class)->create());
 
-        $thread = factory(Thread::class)->create(['user_id' => $user->id]);
+        $thread = factory(Thread::class)->create(['user_id' => auth()->id()]);
 
-        $this->get("/profiles/{$user->name}")
+        $this->get("/profiles/" . auth()->user()->name)
             ->assertSee($thread->title)
             ->assertSee($thread->body);
     }

@@ -87,7 +87,6 @@ class CreateThreadsTest extends TestCase
         $this->actingAs(factory(User::class)->create());
 
         $thread = factory(Thread::class)->create(['user_id' => auth()->id()]);
-
         $reply = factory(Reply::class)->create(['thread_id' => $thread->id]);
 
         $response =  $this->json('DELETE', $thread->path());
@@ -100,6 +99,16 @@ class CreateThreadsTest extends TestCase
 
         $this->assertDatabaseMissing('replies', [
             'id' => $reply->id
+        ]);
+
+        $this->assertDatabaseMissing('activities', [
+            'subject_id'    => $thread->id,
+            'subject_type'  => get_class($thread)
+        ]);
+
+        $this->assertDatabaseMissing('activities', [
+            'subject_id'    => $reply->id,
+            'subject_type'  => get_class($reply)
         ]);
 
     }
