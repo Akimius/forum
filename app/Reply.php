@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Reply extends Model
 {
@@ -23,11 +24,21 @@ class Reply extends Model
     /**
      * A reply belongs to a thread.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function thread()
     {
         return $this->belongsTo(Thread::class);
+    }
+
+    /**
+     * Determine the path to the reply.
+     *
+     * @return string
+     */
+    public function path()
+    {
+        return $this->thread->path() . "#reply-{$this->id}";
     }
 
 }

@@ -1,23 +1,16 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: akim
- * Date: 17.03.19
- * Time: 19:24
- */
 
 namespace App;
 
 
-use function foo\func;
-
 trait RecordsActivity
 {
-
-    protected static function bootRecordsActivity() // boot + Name of the Trait will be triggered on the model which uses the trait
+    // boot + Name of the Trait will be triggered on the model which uses the trait
+    protected static function bootRecordsActivity()
     {
-        if (auth()->guest()) return;
-
+        if (auth()->guest()) {
+            return;
+        }
         foreach (static::getActivitiesToRecord() as $event) {
             static::$event(function ($model) use ($event) {
                 $model->recordActivity($event);
