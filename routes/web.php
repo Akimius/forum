@@ -16,7 +16,6 @@ Route::get('/', function () {
 });
 
 
-
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -38,4 +37,5 @@ Route::post('/replies/{reply}/favorites', 'FavoritesController@store');
 
 Route::get('/profiles/{user}', 'ProfilesController@show')->name('profile');
 
+Route::delete('/replies/{reply}', 'RepliesController@destroy');
 

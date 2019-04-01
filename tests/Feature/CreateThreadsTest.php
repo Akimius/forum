@@ -30,7 +30,7 @@ class CreateThreadsTest extends TestCase
     function an_authenticated_user_may_create_new_forum_thread()
     {
 
-        $this->actingAs(factory('App\User')->create());
+        $this->signIn();
 
         $thread = factory('App\Thread')->make();
 

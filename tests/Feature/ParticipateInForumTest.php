@@ -2,14 +2,14 @@
 
 namespace Tests\Feature;
 
+use App\Reply;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ParticipateInForumTest extends TestCase
 {
     use DatabaseMigrations;
+
     /** @test */
     function unauthenticated_users_may_not_add_replies()
     {
@@ -45,5 +45,20 @@ class ParticipateInForumTest extends TestCase
 
         $this->post($thread->path() . '/replies', $reply->toArray())
             ->assertSessionHasErrors('body');
+    }
+
+    /** @test */
+    function unauthorized_users_cannot_delete_replies()
+    {
+        $this->withExceptionHandling();
+
+        $reply = factory(Reply::class)->create();
+
+        $this->delete("/replies/{$reply->id}")
+            ->assertRedirect('login');
+
+        $this->signIn()
+            ->delete("/replies/{$reply->id}")
+            ->assertStatus(403);
     }
 }
