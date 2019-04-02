@@ -61,4 +61,50 @@ class ParticipateInForumTest extends TestCase
             ->delete("/replies/{$reply->id}")
             ->assertStatus(403);
     }
+
+    /** @test */
+    function authorized_users_can_delete_replies()
+    {
+        $this->signIn();
+
+        $reply = factory(Reply::class)->create([
+            'user_id' => auth()->id()
+        ]);
+
+        $this->delete("/replies/{$reply->id}")
+            ->assertStatus(302);
+
+        $this->assertDatabaseMissing('replies', ['id' => $reply->id]);
+    }
+
+    /** @test */
+    function authorized_users_can_update_replies()
+    {
+        $body = 'You been changed, fool';
+
+        $this->signIn();
+
+        $reply = factory(Reply::class)->create([
+            'user_id' => auth()->id()
+        ]);
+
+        $this->patch("/replies/{$reply->id}", ['body' => $body]);
+
+        $this->assertDatabaseHas('replies', ['id' => $reply->id, 'body' => $body]);
+    }
+
+    /** @test */
+    function unauthorized_users_cannot_update_replies()
+    {
+        $this->withExceptionHandling();
+
+        $reply = factory(Reply::class)->create();
+
+        $this->patch("/replies/{$reply->id}")
+            ->assertRedirect('login');
+
+        $this->signIn()
+            ->patch("/replies/{$reply->id}")
+            ->assertStatus(403);
+    }
 }

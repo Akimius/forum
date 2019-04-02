@@ -13,6 +13,13 @@ class RepliesController extends Controller
         $this->middleware('auth');
     }
 
+    public function update(Reply $reply)
+    {
+        $this->authorize('update', $reply);
+
+        $reply->update(['body' => request('body')]);
+    }
+
     public function store($channelId, Thread $thread)
     {
         $this->validate(request(), ['body' => 'required']);
@@ -28,9 +35,7 @@ class RepliesController extends Controller
 
     public function destroy(Reply $reply)
     {
-        if ($reply->user_id != auth()->id()) {
-            return response([], 403);
-        }
+        $this->authorize('update', $reply);
 
         $reply->delete();
 
