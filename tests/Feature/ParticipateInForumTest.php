@@ -78,22 +78,6 @@ class ParticipateInForumTest extends TestCase
     }
 
     /** @test */
-    function authorized_users_can_update_replies()
-    {
-        $body = 'You been changed, fool';
-
-        $this->signIn();
-
-        $reply = factory(Reply::class)->create([
-            'user_id' => auth()->id()
-        ]);
-
-        $this->patch("/replies/{$reply->id}", ['body' => $body]);
-
-        $this->assertDatabaseHas('replies', ['id' => $reply->id, 'body' => $body]);
-    }
-
-    /** @test */
     function unauthorized_users_cannot_update_replies()
     {
         $this->withExceptionHandling();
@@ -106,5 +90,21 @@ class ParticipateInForumTest extends TestCase
         $this->signIn()
             ->patch("/replies/{$reply->id}")
             ->assertStatus(403);
+    }
+
+    /** @test */
+    function authorized_users_can_update_replies()
+    {
+        $this->signIn();
+
+        $reply = factory(Reply::class)->create([
+            'user_id' => auth()->id()
+        ]);
+
+        $updatedReply = 'You been changed, fool';
+
+        $this->patch("/replies/{$reply->id}", ['body' => $updatedReply]);
+
+        $this->assertDatabaseHas('replies', ['id' => $reply->id, 'body' => $updatedReply]);
     }
 }
