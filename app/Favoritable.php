@@ -2,10 +2,15 @@
 
 namespace App;
 
-
 trait Favoritable
 {
+    protected static function bootFavoritable()
+    {
+        static::deleting(function($model){
+            $model->favorites->each->delete();
+        });
 
+    }
 
     /**
      * Get the number of favorites for the reply.
@@ -35,8 +40,18 @@ trait Favoritable
     public function unfavorite()
     {
         $attributes = ['user_id' => auth()->id()];
+        // 1st option
+//        $this->favorites()
+//            ->where($attributes)
+//            ->get()
+//            ->each(function ($favorite) {
+//            $favorite->dalete();
+//        });
 
-        $this->favorites()->where($attributes)->delete();
+        // 2nd option
+        $this->favorites()
+            ->where($attributes)
+            ->get()->each->delete();
     }
 
     public function isFavorited()
