@@ -34,34 +34,13 @@
 
                 <replies :data="{{$thread->replies}}"
                          @removed ="repliesCount--"
-
+                         @added ="repliesCount++"
                 ></replies>
 
 {{--                    <div class="level">--}}
 {{--                        {{ $replies->links() }}--}}
 {{--                    </div>--}}
 
-
-                @if(auth()->check())
-
-                    <form method="POST" action="{{$thread->path() . '/replies'}}">
-                        @csrf
-                        <div class="form-group">
-                            <label for="body">Post here</label>
-                            <textarea placeholder="Have something to say ???" rows="2" name="body" id="body"
-                                      class="form-control"></textarea>
-                            <small id="bodyHelp" class="form-text text-muted">Please be polite.</small>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary">Post</button>
-                    </form>
-                @else
-
-                    <p class="text-center">
-                        Please <a href="{{route('login')}}">sign in</a> to participate in forum
-                    </p>
-
-                @endif
             </div>
 
             <div class="col-md-4">

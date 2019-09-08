@@ -13,7 +13,7 @@
                         </div>
                     @endif
                         @forelse($threads as $thread)
-                            <atricle>
+                            <article>
                                 <div class="card mb-3 border-secondary p-2">
                                 <div class=" card-header level">
                                     <h4 class="flex">
@@ -29,7 +29,7 @@
                                     {{$thread->body}}
                                 </div>
                                 </div>
-                            </atricle>
+                            </article>
                             @empty
                             <p>There are no relevant results at this time</p>
                         @endforelse
