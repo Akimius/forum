@@ -22,6 +22,14 @@
           integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
           crossorigin="anonymous">
 
+    <script>
+        window.App = {!!json_encode([
+        'csrfToken' => csrf_token(),
+        'user' => Auth::user(),
+        'signedIn' => Auth::check(),
+        ])!!};
+    </script>
+
     <style>
         body {
             padding-bottom: 100px;
