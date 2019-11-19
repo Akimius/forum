@@ -4,6 +4,7 @@
             <reply :data="reply" @deleted="remove(index)"></reply>
         </div>
         <new-reply :endpoint="endpoint" @created="add"></new-reply>
+
     </div>
 </template>
 
@@ -12,6 +13,8 @@
     import NewReply from "./NewReply";
 
     export default {
+        props: ['data'],
+
         components: {Reply, NewReply},
 
         data() {
