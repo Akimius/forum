@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Thread;
 use App\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -74,6 +75,36 @@ class ThreadTest extends TestCase
 
         $this->assertEquals('/threads/' . $thread->channel->slug . '/' . $thread->id, $thread->path());
 
+    }
+
+    /**
+     * @test
+     */
+    public function a_thread_can_be_subscribed_to()
+    {
+        $thread = factory(Thread::class)->create();
+
+//        $this->signIn();
+
+        $thread->subscribe($userId = 1);
+
+        $this->assertEquals(
+            1,
+            $thread->subscriptions()->where('user_id', $userId)->count()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function a_thread_can_be_unsubscribed_from()
+    {
+        $thread = factory(Thread::class)->create();
+
+        $thread->subscribe($userId = 1);
+        $thread->unsubscribe($userId);
+
+        $this->assertCount(0, $thread->subscriptions);
     }
 
 
