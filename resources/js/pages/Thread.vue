@@ -3,10 +3,12 @@
 </template>
 
 <script>
-    import Replies from '../components/Replies'
+    import Replies from '../components/Replies.vue';
+    import SubscribeButton from '../components/SubscribeButton.vue';
+
     export default {
         props: ['initialRepliesCount'],
-        comments: {Replies},
+        components: {Replies, SubscribeButton},
 
         data() {
             return {
