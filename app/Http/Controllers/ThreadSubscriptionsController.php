@@ -13,7 +13,7 @@ class ThreadSubscriptionsController extends Controller
      * @param int    $channelId
      * @param Thread $thread
      */
-    public function store($channelId, Thread $thread)
+    public function store($channelId, Thread $thread): void
     {
         $thread->subscribe();
     }
@@ -23,7 +23,7 @@ class ThreadSubscriptionsController extends Controller
      * @param int    $channelId
      * @param Thread $thread
      */
-    public function destroy($channelId, Thread $thread)
+    public function destroy($channelId, Thread $thread): void
     {
         $thread->unsubscribe();
     }

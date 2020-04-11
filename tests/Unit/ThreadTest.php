@@ -20,7 +20,7 @@ class ThreadTest extends TestCase
     {
         parent::setUp();
 
-        $this->thread = factory('App\Thread')->create();
+        $this->thread = factory(Thread::class)->create();
     }
 
     /**
@@ -110,7 +110,7 @@ class ThreadTest extends TestCase
     /** @test */
     function it_knows_if_the_authenticated_user_is_subscribed_to_it()
     {
-        $thread = factory('App\Thread')->create();
+        $thread = factory(Thread::class)->create();
 
         $this->signIn();
         $this->assertFalse($thread->isSubscribedTo);

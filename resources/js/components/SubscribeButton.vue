@@ -19,6 +19,9 @@
                     ](location.pathname + '/subscriptions');
 
                 this.active = ! this.active;
+
+                let message = this.active ? 'Subscribed' : 'Un-subscribed';
+                flash(message);
             }
         }
     }

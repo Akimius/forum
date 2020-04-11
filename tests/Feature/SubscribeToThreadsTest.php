@@ -14,7 +14,7 @@ class SubscribeToThreadsTest extends TestCase
     use DatabaseMigrations;
 
     /** @test */
-    function a_user_can_subscribe_to_threads()
+    public function a_user_can_subscribe_to_threads()
     {
         $this->signIn();
 
@@ -23,15 +23,7 @@ class SubscribeToThreadsTest extends TestCase
         $this->post($thread->path() . '/subscriptions');
 
 
-        $thread->addReply(
-            [
-                'user_id' => auth()->id(),
-                'body'    => 'Some reply here'
-            ]
-        );
-        // A notification should be prepared for the user.
-        // TODO:
-        // $this->assertCount(1, auth()->user()->notifications);
+        $this->assertCount(1, $thread->fresh()->subscriptions);
     }
 
     /** @test */
@@ -39,8 +31,11 @@ class SubscribeToThreadsTest extends TestCase
     {
         $this->signIn();
         $thread = factory(Thread::class)->create();
+
         $thread->subscribe();
+
         $this->delete($thread->path() . '/subscriptions');
+
         $this->assertCount(0, $thread->subscriptions);
     }
 }

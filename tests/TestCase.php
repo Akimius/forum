@@ -9,7 +9,7 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
 
-    protected function signIn($user = null)
+    protected function signIn($user = null): TestCase
     {
         $user = $user ?: factory(User::class)->create();
 

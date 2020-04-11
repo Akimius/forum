@@ -2170,6 +2170,8 @@ __webpack_require__.r(__webpack_exports__);
     subscribe: function subscribe() {
       axios[this.active ? 'delete' : 'post'](location.pathname + '/subscriptions');
       this.active = !this.active;
+      var message = this.active ? 'Subscribed' : 'Un-subscribed';
+      flash(message);
     }
   }
 });
