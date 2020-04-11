@@ -35,7 +35,7 @@ class SubscribeToThreadsTest extends TestCase
     }
 
     /** @test */
-    public function a_user_can_unsubscribe_from_threads()
+    public function a_user_can_unsubscribe_from_threads(): void
     {
         $this->signIn();
         $thread = factory(Thread::class)->create();
