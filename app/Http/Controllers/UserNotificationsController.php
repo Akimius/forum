@@ -18,7 +18,7 @@ class UserNotificationsController extends Controller
         return auth()->user()->unreadNotifications;
     }
 
-    public function destroy(User $user, $notificationId)
+    public function destroy(User $user, $notificationId): void
     {
         auth()->user()
             ->notifications()
