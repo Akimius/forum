@@ -2,31 +2,40 @@
 
 namespace Tests\Unit;
 
+use App\Notifications\ThreadWasUpdated;
 use App\Thread;
 use App\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Support\Facades\Notification;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Channel;
 
 class ThreadTest extends TestCase
 {
     use DatabaseMigrations;
 
-    protected $thread;
+    protected Thread $thread;
+    protected array $addReply;
 
     public function setUp(): void
     {
         parent::setUp();
 
         $this->thread = factory(Thread::class)->create();
+
+        $this->addReply =   [
+            'body'    => 'Foobar',
+            'user_id' => factory(User::class)->create()->id
+        ];
     }
 
     /**
      * @test
      */
-    public function a_thread_has_replies()
+    public function a_thread_has_replies(): void
     {
 
         $this->assertInstanceOf(Collection::class, $this->thread->replies);
@@ -35,7 +44,7 @@ class ThreadTest extends TestCase
     /**
      * @test
      */
-    public function a_thread_has_a_creator()
+    public function a_thread_has_a_creator(): void
     {
 
         $this->assertInstanceOf(User::class, $this->thread->owner);
@@ -46,10 +55,7 @@ class ThreadTest extends TestCase
      */
     public function a_thread_can_add_a_reply()
     {
-        $this->thread->addReply([
-            'body' => 'Foobar',
-            'user_id' => 1,
-        ]);
+        $this->thread->addReply($this->addReply);
 
         $this->assertCount(1, $this->thread->replies);
     }
@@ -59,9 +65,9 @@ class ThreadTest extends TestCase
      */
     public function a_thread_belongs_to_a_channel()
     {
-        $thread = factory('App\Thread')->create();
+        $thread = factory(Thread::class)->create();
 
-        $this->assertInstanceOf('App\Channel', $thread->channel);
+        $this->assertInstanceOf(Channel::class, $thread->channel);
 
     }
 
@@ -71,7 +77,7 @@ class ThreadTest extends TestCase
     public function a_thread_can_make_a_string_path()
     {
 
-        $thread = factory('App\Thread')->create();
+        $thread = factory(Thread::class)->create();
 
         $this->assertEquals('/threads/' . $thread->channel->slug . '/' . $thread->id, $thread->path());
 
@@ -84,8 +90,6 @@ class ThreadTest extends TestCase
     {
         $thread = factory(Thread::class)->create();
 
-//        $this->signIn();
-
         $thread->subscribe($userId = 1);
 
         $this->assertEquals(
@@ -97,7 +101,7 @@ class ThreadTest extends TestCase
     /**
      * @test
      */
-    public function a_thread_can_be_unsubscribed_from()
+    public function a_thread_can_be_unsubscribed_from(): void
     {
         $thread = factory(Thread::class)->create();
 
@@ -108,7 +112,7 @@ class ThreadTest extends TestCase
     }
 
     /** @test */
-    function it_knows_if_the_authenticated_user_is_subscribed_to_it()
+    public function it_knows_if_the_authenticated_user_is_subscribed_to_it(): void
     {
         $thread = factory(Thread::class)->create();
 
@@ -116,6 +120,20 @@ class ThreadTest extends TestCase
         $this->assertFalse($thread->isSubscribedTo);
         $thread->subscribe();
         $this->assertTrue($thread->isSubscribedTo);
+    }
+
+    /** @test */
+    public function a_thread_notifies_all_registered_subscribers_when_a_reply_is_added(): void
+    {
+        Notification::fake();
+
+        $this
+            ->signIn()
+            ->thread
+            ->subscribe()
+            ->addReply($this->addReply);
+
+        Notification::assertSentTo(auth()->user(), ThreadWasUpdated::class);
     }
 
 
