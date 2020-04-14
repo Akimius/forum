@@ -5,6 +5,7 @@ namespace App;
 use App\Events\ThreadHasNewReply;
 use App\Notifications\ThreadWasUpdated;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Thread extends Model
 {
@@ -116,6 +117,20 @@ class Thread extends Model
         return $this->subscriptions()
             ->where('user_id', auth()->id())
             ->exists(); // if the record exists
+    }
+
+    /**
+     * Determine if the thread has been updated since the user last read it.
+     *
+     * @param User|null $user
+     * @return bool
+     * @throws \Exception
+     */
+    public function hasUpdatesFor(User $user): bool
+    {
+        $key = $user->visitedThreadCacheKey($this);
+
+        return $this->updated_at > cache($key);
     }
 
 }
