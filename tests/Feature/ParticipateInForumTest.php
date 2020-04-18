@@ -5,13 +5,15 @@ namespace Tests\Feature;
 use App\Reply;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
+use App\User;
+use App\Thread;
 
 class ParticipateInForumTest extends TestCase
 {
     use DatabaseMigrations;
 
     /** @test */
-    function unauthenticated_users_may_not_add_replies()
+    public function unauthenticated_users_may_not_add_replies(): void
     {
         $this->withExceptionHandling();
 
@@ -20,12 +22,12 @@ class ParticipateInForumTest extends TestCase
     }
 
     /** @test */
-    function an_authenticated_user_may_participate_in_forum_threads()
+    public function an_authenticated_user_may_participate_in_forum_threads(): void
     {
-        $this->be($user = factory('App\User')->create());
+        $this->be($user = factory(User::class)->create());
 
-        $thread = factory('App\Thread')->create();
-        $reply = factory('App\Reply')->make();
+        $thread = factory(Thread::class)->create();
+        $reply = factory(Reply::class)->make();
 
 
         $this->post($thread->path() . '/replies', $reply->toArray());
@@ -38,20 +40,20 @@ class ParticipateInForumTest extends TestCase
     }
 
     /** @test */
-    function a_reply_requires_a_body()
+    public function a_reply_requires_a_body(): void
     {
         $this->withExceptionHandling()
-            ->actingAs(factory('App\User')->create());
+            ->actingAs(factory(User::class)->create());
 
-        $thread = factory('App\Thread')->create();
-        $reply = factory('App\Reply')->make(['body' => null]);
+        $thread = factory(Thread::class)->create();
+        $reply = factory(Reply::class)->make(['body' => null]);
 
         $this->post($thread->path() . '/replies', $reply->toArray())
             ->assertSessionHasErrors('body');
     }
 
     /** @test */
-    function unauthorized_users_cannot_delete_replies()
+    public function unauthorized_users_cannot_delete_replies(): void
     {
         $this->withExceptionHandling();
 
@@ -66,7 +68,7 @@ class ParticipateInForumTest extends TestCase
     }
 
     /** @test */
-    function authorized_users_can_delete_replies()
+    public function authorized_users_can_delete_replies(): void
     {
         $this->signIn();
 
@@ -83,7 +85,7 @@ class ParticipateInForumTest extends TestCase
     }
 
     /** @test */
-    function unauthorized_users_cannot_update_replies()
+    public function unauthorized_users_cannot_update_replies(): void
     {
         $this->withExceptionHandling();
 
@@ -98,7 +100,7 @@ class ParticipateInForumTest extends TestCase
     }
 
     /** @test */
-    function authorized_users_can_update_replies()
+    public function authorized_users_can_update_replies(): void
     {
         $this->signIn();
 
@@ -112,4 +114,21 @@ class ParticipateInForumTest extends TestCase
 
         $this->assertDatabaseHas('replies', ['id' => $reply->id, 'body' => $updatedReply]);
     }
+
+    /** @test */
+//    public function replies_that_contain_span_may_not_be_created(): void
+//    {
+//        $this->signIn();
+//
+//        $thread = factory(Thread::class)->create();
+//        $reply = factory(Reply::class)->make(
+//            [
+//                'body' => 'Yahoo Customer Support'
+//            ]
+//        );
+//        $this->expectException(\Exception::class);
+//        // not working, see https://laracasts.com/discuss/channels/testing/failed-asserting-that-exception-of-type-exception-is-thrown
+//
+//        $this->post($thread->path() . '/replies', $reply->toArray());
+//    }
 }

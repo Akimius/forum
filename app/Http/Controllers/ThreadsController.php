@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Channel;
 use App\Filters\ThreadFilters;
+use App\Inspections\Spam;
 use App\Thread;
 use App\User;
 use http\Client\Response;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\Request;
 
 class ThreadsController extends Controller
@@ -22,7 +24,7 @@ class ThreadsController extends Controller
      *
      * @param Channel $channel
      * @param ThreadFilters $filters
-     * @return \Illuminate\Http\Response
+     * @return Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(Channel $channel, ThreadFilters $filters)
     {
@@ -38,7 +40,7 @@ class ThreadsController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
@@ -48,23 +50,27 @@ class ThreadsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @param Spam $spam
+     * @return Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      * @throws \Illuminate\Validation\ValidationException
+     * @throws \Exception
      */
-    public function store(Request $request)
+    public function store(Request $request, Spam $spam)
     {
         $this->validate($request, [
-            'title' => 'required|min:3',
-            'body' => 'required|min:3',
+            'title'      => 'required|min:3',
+            'body'       => 'required|min:3',
             'channel_id' => 'required|exists:channels,id'
         ]);
 
+        $spam->detect(request('body'));
+
         $thread = Thread::create([
-            'user_id' => auth()->id(),
+            'user_id'    => auth()->id(),
             'channel_id' => request('channel_id'),
-            'title' => request('title'),
-            'body' => request('body'),
+            'title'      => request('title'),
+            'body'       => request('body'),
         ]);
 
         return redirect($thread->path())
@@ -76,7 +82,7 @@ class ThreadsController extends Controller
      *
      * @param $channelID
      * @param  \App\Thread $thread
-     * @return \Illuminate\Http\Response
+     * @return Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show($channel, Thread $thread)
     {
@@ -115,7 +121,7 @@ class ThreadsController extends Controller
      *
      * @param $channel
      * @param  \App\Thread $thread
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
      */
     public function destroy($channel, Thread $thread)
