@@ -23,18 +23,22 @@ class RepliesController extends Controller
      * @param Reply $reply
      * @param Spam $spam
      * @throws \Illuminate\Auth\Access\AuthorizationException
-     * @throws \Illuminate\Validation\ValidationException
      * @throws \Exception
      */
-    public function update(Reply $reply, Spam $spam): void
+    public function update(Reply $reply, Spam $spam)
     {
         $this->authorize('update', $reply);
 
-        $this->validate(request(),[
-            'body' => 'required'
+        try {
+            $this->validate(request(),[
+                'body' => 'required'
             ]);
 
-        $spam->detect(request('body'));
+            $spam->detect(request('body'));
+
+        } catch (\Exception $exception) {
+            return response('Sorry, your comment could not be saved at this time', 422);
+        }
 
         $reply->update(['body' => request('body')]);
     }
@@ -49,21 +53,30 @@ class RepliesController extends Controller
      */
     public function store($channelId, Thread $thread, Spam $spam)
     {
-        $this->validate(request(), ['body' => 'required']);
+        try {
+            $this->validate(request(), ['body' => 'required']);
 
-        $spam->detect(request('body'));
+            $spam->detect(request('body'));
 
-        $reply = $thread->addReply([
-            'body' => request('body'),
-            'user_id' => auth()->id(),
-        ]);
-
-        if (request()->expectsJson()) {
-            return $reply->load('owner');
+            $reply = $thread->addReply(
+                [
+                    'body' => request('body'),
+                    'user_id' => auth()->id(),
+                ]
+            );
+        } catch (\Exception $exception) {
+            return response('Sorry, your comment could not be saved at this time', 422);
         }
 
-        return back()
-            ->with('flash', auth()->user()->name . ' has left a reply');
+
+//        if (request()->expectsJson()) {
+//            return $reply->load('owner');
+//        }
+//        return back()
+//            ->with('flash', auth()->user()->name . ' has left a reply');
+
+        // or just:
+        return $reply->load('owner');
     }
 
     public function destroy(Reply $reply)
