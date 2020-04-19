@@ -4,10 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Channel;
 use App\Filters\ThreadFilters;
-use App\Inspections\Spam;
+use App\Rules\SpamFree;
 use App\Thread;
-use App\User;
-use http\Client\Response;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\Request;
 
@@ -51,20 +49,21 @@ class ThreadsController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param Spam $spam
      * @return Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      * @throws \Illuminate\Validation\ValidationException
-     * @throws \Exception
      */
-    public function store(Request $request, Spam $spam)
+    public function store()
     {
-        $this->validate($request, [
-            'title'      => 'required|min:3',
-            'body'       => 'required|min:3',
-            'channel_id' => 'required|exists:channels,id'
-        ]);
-
-        $spam->detect(request('body'));
+        $this->validate(
+            request(),
+            [
+                'title' =>
+                    ['required', 'min:3', new SpamFree()],
+                'body' =>
+                    ['required', 'min:3', new SpamFree()],
+                'channel_id' => 'required|exists:channels,id'
+            ]
+        );
 
         $thread = Thread::create([
             'user_id'    => auth()->id(),

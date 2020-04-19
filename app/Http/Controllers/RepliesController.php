@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Inspections\Spam;
 use App\Reply;
+use App\Rules\SpamFree;
 use App\Thread;
+use Illuminate\Contracts\Foundation\Application;
 
 class RepliesController extends Controller
 {
@@ -21,21 +23,21 @@ class RepliesController extends Controller
 
     /**
      * @param Reply $reply
-     * @param Spam $spam
+     * @return Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      * @throws \Illuminate\Auth\Access\AuthorizationException
-     * @throws \Exception
      */
-    public function update(Reply $reply, Spam $spam)
+    public function update(Reply $reply)
     {
         $this->authorize('update', $reply);
 
         try {
-            $this->validate(request(),[
-                'body' => 'required'
-            ]);
-
-            $spam->detect(request('body'));
-
+            $this->validate(
+                request(),
+                [
+                    'body' =>
+                        ['required', new SpamFree()],
+                ]
+            );
         } catch (\Exception $exception) {
             return response('Sorry, your comment could not be saved at this time', 422);
         }
@@ -46,17 +48,23 @@ class RepliesController extends Controller
     /**
      * @param $channelId
      * @param Thread $thread
-     * @param Spam $spam
      * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Http\RedirectResponse
-     * @throws \Illuminate\Validation\ValidationException
-     * @throws \Exception
      */
-    public function store($channelId, Thread $thread, Spam $spam)
+    public function store($channelId, Thread $thread)
     {
         try {
-            $this->validate(request(), ['body' => 'required']);
+//            $this->validate(
+//                request(),
+//                [
+//                    'body' => ['required', new SpamFree()],
+//                ]
+//            );
 
-            $spam->detect(request('body'));
+            request()->validate(
+                [
+                    'body' => ['required', new SpamFree()],
+                ]
+            );
 
             $reply = $thread->addReply(
                 [

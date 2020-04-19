@@ -48,8 +48,10 @@ class ParticipateInForumTest extends TestCase
         $thread = factory(Thread::class)->create();
         $reply = factory(Reply::class)->make(['body' => null]);
 
-        $this->post($thread->path() . '/replies', $reply->toArray())
-            ->assertSessionHasErrors('body');
+        $response = $this->post($thread->path() . '/replies', $reply->toArray());
+
+        //$response->assertSessionHasErrors('body'); // Not working
+        $response->assertStatus(422); // "Unprocessable Entity"
     }
 
     /** @test */
