@@ -118,19 +118,33 @@ class ParticipateInForumTest extends TestCase
     }
 
     /** @test */
-//    public function replies_that_contain_span_may_not_be_created(): void
-//    {
-//        $this->signIn();
-//
-//        $thread = factory(Thread::class)->create();
-//        $reply = factory(Reply::class)->make(
-//            [
-//                'body' => 'Yahoo Customer Support'
-//            ]
-//        );
-//        $this->expectException(\Exception::class);
-//        // not working, see https://laracasts.com/discuss/channels/testing/failed-asserting-that-exception-of-type-exception-is-thrown
-//
-//        $this->post($thread->path() . '/replies', $reply->toArray());
-//    }
+    public function replies_that_contain_span_may_not_be_created(): void
+    {
+        $this->signIn();
+
+        $thread = factory(Thread::class)->create();
+        $reply = factory(Reply::class)->make(
+            [
+                'body' => 'Yahoo Customer Support'
+            ]
+        );
+
+        $this->post($thread->path() . '/replies', $reply->toArray())
+        ->assertStatus(422);
+    }
+
+    /** @test */
+    public function users_may_only_reply_a_maximum_of_once_per_minute(): void
+    {
+        $this->signIn();
+
+        $thread = create(Thread::class);
+        $reply = make(Reply::class);
+
+        $this->post($thread->path() . '/replies', $reply->toArray())
+            ->assertStatus(201);
+
+        $this->post($thread->path() . '/replies', $reply->toArray())
+            ->assertStatus(429);
+    }
 }

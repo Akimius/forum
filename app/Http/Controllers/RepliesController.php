@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Inspections\Spam;
 use App\Reply;
 use App\Rules\SpamFree;
 use App\Thread;
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Support\Facades\Gate;
 
 class RepliesController extends Controller
 {
@@ -48,17 +48,20 @@ class RepliesController extends Controller
     /**
      * @param $channelId
      * @param Thread $thread
-     * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Http\RedirectResponse
+     * @return Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */
     public function store($channelId, Thread $thread)
     {
+
+        if (Gate::denies('create', new Reply)) {
+            return response(
+                'You are posting too frequently. Please take a break. :)', 429
+            );
+        }
+
         try {
-//            $this->validate(
-//                request(),
-//                [
-//                    'body' => ['required', new SpamFree()],
-//                ]
-//            );
+
+            $this->authorize('create', new Reply());
 
             request()->validate(
                 [

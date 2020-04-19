@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -15,10 +16,22 @@ class ReplyTest extends TestCase
     /**
      * @test
      */
-    public function it_has_an_owner()
+    public function it_has_an_owner(): void
     {
         $reply = factory(Reply::class)->create();
 
         $this->assertInstanceOf(User::class, $reply->owner);
+    }
+
+    /** @test */
+    public function it_knows_if_it_was_just_published(): void
+    {
+        $reply = create(Reply::class);
+
+        $this->assertTrue($reply->wasJustPublished());
+
+        $reply->created_at = Carbon::now()->subMonth();
+
+        $this->assertFalse($reply->wasJustPublished());
     }
 }

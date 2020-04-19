@@ -26,9 +26,23 @@ class ReplyPolicy
      *
      * @return bool
      */
-    public function update(User $user, Reply $reply)
+    public function update(User $user, Reply $reply): bool
     {
-        return $reply->user_id == $user->id;
+        return $reply->user_id === $user->id;
+    }
 
+    /**
+     * @param User $user
+     * @return bool
+     */
+    public function create(User $user): bool
+    {
+        $lastReply = $user->fresh()->lastReply;
+
+        if (! $lastReply) {
+            return true;
+        }
+
+        return ! $lastReply->wasJustPublished();
     }
 }

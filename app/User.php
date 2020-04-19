@@ -3,6 +3,7 @@
 namespace App;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -43,6 +44,17 @@ class User extends Authenticatable
     {
         return $this->hasMany(Thread::class)->latest();
     }
+
+    /**
+     * Fetch the last published reply for the user.
+     *
+     * @return HasOne
+     */
+    public function lastReply(): HasOne
+    {
+        return $this->hasOne(Reply::class)->latest();
+    }
+
     /**
      * Get all activity for the user.
      *
