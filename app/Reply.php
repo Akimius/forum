@@ -2,7 +2,6 @@
 
 namespace App;
 
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -56,7 +55,7 @@ class Reply extends Model
      */
     public function wasJustPublished(): bool
     {
-        return $this->created_at->gt(Carbon::now()->subMinutes(1));
+        return $this->created_at->gt(now()->subMinutes(1));
     }
 
     /**
