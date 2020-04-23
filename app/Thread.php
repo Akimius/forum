@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Events\ThreadHasNewReply;
+use App\Events\ThreadReceivedNewReplyEvent;
 use App\Notifications\ThreadWasUpdated;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -67,7 +67,7 @@ class Thread extends Model
     {
         $reply = $this->replies()->create($reply);
 
-        event(new ThreadHasNewReply($this, $reply));
+        event(new ThreadReceivedNewReplyEvent($this, $reply));
 
         return $reply;
 

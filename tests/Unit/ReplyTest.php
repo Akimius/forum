@@ -34,4 +34,15 @@ class ReplyTest extends TestCase
 
         $this->assertFalse($reply->wasJustPublished());
     }
+
+    /** @test */
+    public function it_can_detect_all_users_in_a_body(): void
+    {
+        $reply = create(Reply::class, [
+            'body' => '@JohnDoe wants to talk to @JaneDoe'
+        ]);
+
+        $this->assertEquals(['JohnDoe', 'JaneDoe'], $reply->mentionedUsers());
+
+    }
 }

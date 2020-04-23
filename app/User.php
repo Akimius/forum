@@ -3,6 +3,7 @@
 namespace App;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -30,17 +31,17 @@ class User extends Authenticatable
         'password', 'remember_token', 'email',
     ];
 
-    public function isAdmin()
+    public function isAdmin(): bool
     {
         return $this->id === 1;
     }
 
-    public function getRouteKeyName()
+    public function getRouteKeyName(): string
     {
         return 'name';
     }
 
-    public function threads()
+    public function threads(): HasMany
     {
         return $this->hasMany(Thread::class)->latest();
     }
@@ -58,9 +59,9 @@ class User extends Authenticatable
     /**
      * Get all activity for the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
-    public function activity()
+    public function activity(): HasMany
     {
         return $this->hasMany(Activity::class);
     }
