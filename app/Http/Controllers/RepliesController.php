@@ -28,13 +28,12 @@ class RepliesController extends Controller
     /**
      * @param Reply $reply
      * @return Application|ResponseFactory|\Illuminate\Http\Response
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws \Illuminate\Auth\Access\AuthorizationException|\Illuminate\Validation\ValidationException
      */
-    public function update(Reply $reply)
+    public function update(Reply $reply): void
     {
         $this->authorize('update', $reply);
 
-        try {
             $this->validate(
                 request(),
                 [
@@ -42,9 +41,6 @@ class RepliesController extends Controller
                         ['required', new SpamFree()],
                 ]
             );
-        } catch (\Exception $exception) {
-            return response('Sorry, your comment could not be saved at this time', 422);
-        }
 
         $reply->update(['body' => request('body')]);
     }

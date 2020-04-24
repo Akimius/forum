@@ -28,17 +28,27 @@ class NotifyMentionedUsers
      */
     public function handle(ThreadReceivedNewReplyEvent $event): void
     {
-        collect($event->reply->mentionedUsers())
-            ->map(
-                static function ($name) {
-                    return User::whereName($name)->first();
-                }
-            )
-            ->filter() // to filter out null values if no such users
+        User::whereIn('name', $event->reply->mentionedUsers())
+            ->get()
             ->each(
                 static function ($user) use ($event) {
                     $user->notify(new YouWereMentioned($event->reply));
                 }
             );
+
+        // Before refactor
+
+//        collect($event->reply->mentionedUsers())
+//            ->map(
+//                static function ($name) {
+//                    return User::whereName($name)->first();
+//                }
+//            )
+//            ->filter() // to filter out null values if no such users
+//            ->each(
+//                static function ($user) use ($event) {
+//                    $user->notify(new YouWereMentioned($event->reply));
+//                }
+//            );
     }
 }
