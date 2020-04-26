@@ -1,5 +1,6 @@
 <?php
 
+use App\Thread;
 use App\Channel;
 use App\Notifications\ThreadWasUpdated;
 use App\User;
@@ -48,7 +49,7 @@ $factory->define(App\Reply::class, function (Faker $faker) {
     return [
 
         'thread_id' => function() {
-            return factory('App\Thread')->create()->id;
+            return factory(Thread::class)->create()->id;
         },
         'user_id' => function() {
             return factory(User::class)->create()->id;
@@ -57,7 +58,7 @@ $factory->define(App\Reply::class, function (Faker $faker) {
     ];
 });
 
-$factory->define(App\Channel::class, function (Faker $faker) {
+$factory->define(App\Channel::class, static function (Faker $faker) {
 
     $name = $faker->word;
 
@@ -72,7 +73,7 @@ $factory->define(
     return [
         'id'            => Uuid::uuid4()->toString(),
         'type'          => ThreadWasUpdated::class,
-        'notifiable_id' => function () {
+        'notifiable_id' => static function () {
             return auth()->id() ?: factory(User::class)->create()->id;
         },
         'notifiable_type' => User::class,

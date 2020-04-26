@@ -91,4 +91,12 @@ class User extends Authenticatable
         return sprintf('users.%s.visits.%s', $this->id, $thread->id);
     }
 
+    /**
+     * @return mixed|string
+     */
+    public function avatar(): string
+    {
+        return asset($this->avatar_path ?: '/avatars/default.jpg');
+    }
+
 }

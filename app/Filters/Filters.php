@@ -19,7 +19,7 @@ abstract class Filters
      *
      * @var array
      */
-    protected $filters = [];
+    protected array $filters = [];
     /**
      * Create a new ThreadFilters instance.
      *
