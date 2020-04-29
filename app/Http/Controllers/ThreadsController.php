@@ -8,6 +8,7 @@ use App\Rules\SpamFree;
 use App\Thread;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 
 class ThreadsController extends Controller
 {
@@ -32,7 +33,10 @@ class ThreadsController extends Controller
             return $threads;
         }
 
-        return view('threads.index', compact('threads'));
+        // 0-4 = Top 5 items
+        $trending = array_map('json_decode',Redis::zrevrange('trending_threads', 0, 4));
+
+        return view('threads.index', compact('threads', 'trending'));
     }
 
     /**
@@ -80,14 +84,27 @@ class ThreadsController extends Controller
      * Display the specified resource.
      *
      * @param $channelID
-     * @param  \App\Thread $thread
+     * @param \App\Thread $thread
      * @return Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \JsonException
      */
     public function show($channel, Thread $thread)
     {
         if (auth()->check()) {
             auth()->user()->read($thread);
         }
+
+        Redis::zincrby(
+            'trending_threads',
+            1,
+            json_encode(
+                [
+                    'title' => $thread->title,
+                    'path' => $thread->path()
+                ],
+                JSON_THROW_ON_ERROR
+            )
+        );
 
         return view('threads.show', compact('thread'));
     }
