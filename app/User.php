@@ -14,12 +14,12 @@ class User extends Authenticatable
     use Notifiable;
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that are not mass assignable.
      *
      * @var array
      */
-    protected $fillable = [
-        'name', 'email', 'password', 'avatar_path'
+    protected $guarded = [
+        'id'
     ];
 
     /**
@@ -97,6 +97,17 @@ class User extends Authenticatable
     public function avatar(): string
     {
         return asset($this->avatar_path ?: '/avatars/default.jpg');
+    }
+
+    /**
+     * Get the path to the user's avatar.
+     *
+     * @param  string $avatar
+     * @return string
+     */
+    public function getAvatarPathAttribute($avatar): string
+    {
+        return asset($avatar ?: '/avatars/default.png');
     }
 
 }

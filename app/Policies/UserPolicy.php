@@ -21,11 +21,13 @@ class UserPolicy
     }
 
     /**
-     * @param User $user
+     * Determine whether the user can update the given profile.
+     *
      * @param User $signedInUser
-     * @return bool
+     * @param User $user
+     * @return boolean
      */
-    public function update(User $user, User $signedInUser): bool
+    public function update(User $signedInUser, User $user): bool
     {
         return $signedInUser->id === $user->id;
     }

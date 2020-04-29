@@ -24,15 +24,15 @@ class UserTest extends TestCase
         $this->assertEquals($reply->id, $user->lastReply->id);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function a_user_can_determine_their_avatar_path(): void
     {
-        $user = factory(User::class)->create();
-        $this->assertEquals('/avatars/default.jpg', $user->avatar());
+        $user = create(User::class);
 
-        $user = factory(User::class)->create(['avatar_path' => '/avatars/me.jpg']);
-        $this->assertEquals('/avatars/me.jpg', $user->avatar());
+        $this->assertEquals(asset('images/avatars/default.png'), $user->avatar_path);
+
+        $user->avatar_path = 'avatars/me.jpg';
+
+        $this->assertEquals(asset('avatars/me.jpg'), $user->avatar_path);
     }
 }

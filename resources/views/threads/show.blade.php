@@ -9,20 +9,15 @@
                         <div class="h5 font-weight-bold card-header">
                             <div class="level">
                                 <div>
-                                    <img src="{{asset($thread->owner->avatar())}}" alt="avatar"
+                                    <img src="{{asset($thread->owner->avatar_path)}}" alt="avatar"
                                     width="25" height="25"
                                     class="mr-2">
                                 </div>
 
-                    <span class="flex">
-                        <a href="{{route('profile', $thread->owner)}}">{{$thread->owner->name}}</a>
-                        posted:
-                        <strong>
-                            <a href="{{$thread->path()}}">
-                                {{$thread->title}}
-                            </a>
-                        </strong>
-                    </span>
+                                <span class="flex">
+                                    <a href="{{ route('profile', $thread->creator) }}">{{ $thread->creator->name }}</a> posted:
+                                    {{ $thread->title }}
+                                </span>
                                 @can('update', $thread)
                                     <form action="{{$thread->path()}}" method="POST">
                                         @csrf
