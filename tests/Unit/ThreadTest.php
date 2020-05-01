@@ -8,6 +8,7 @@ use App\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Redis;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -153,6 +154,17 @@ class ThreadTest extends TestCase
         });
     }
 
+    /** @test */
+    public function a_thread_records_each_visit(): void
+    {
+        $thread = factory(Thread::class)->make(['id' => 1]);
 
+        $thread->resetVisits();
 
+        $thread->recordVisits();
+        $this->assertSame(1, $thread->visits());
+
+        $thread->recordVisits();
+        $this->assertSame(2, $thread->visits());
+    }
 }

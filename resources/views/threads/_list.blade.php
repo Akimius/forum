@@ -27,6 +27,9 @@
             <div class="body p-2">
                 {{$thread->body}}
             </div>
+            <div class="card-footer">
+                {{$thread->visits()}} Visits
+            </div>
         </div>
     </article>
 @empty

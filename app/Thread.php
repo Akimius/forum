@@ -6,12 +6,20 @@ use App\Events\ThreadReceivedNewReplyEvent;
 use App\Notifications\ThreadWasUpdated;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Redis;
+use phpDocumentor\Reflection\Types\This;
 
 class Thread extends Model
 {
     use RecordsActivity;
 
+    /**
+     * @var array
+     */
     protected $guarded = [];
+    /**
+     * @var string[]
+     */
     protected $with = ['owner', 'channel'];
 
     /**
@@ -41,11 +49,17 @@ class Thread extends Model
     }
 
 
+    /**
+     * @return string
+     */
     public function path()
     {
         return "/threads/{$this->channel->slug}/{$this->id}";
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function replies()
     {
         return $this->hasMany(Reply::class);
@@ -53,21 +67,34 @@ class Thread extends Model
 //            ->with('owner');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function channel()
     {
         return $this->belongsTo(Channel::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function owner()
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function creator()
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    /**
+     * @param $reply
+     * @return Model
+     */
     public function addReply($reply)
     {
         $reply = $this->replies()->create($reply);
@@ -78,18 +105,30 @@ class Thread extends Model
 
     }
 
+    /**
+     * @param $query
+     * @param $filters
+     * @return mixed
+     */
     public function scopeFilter($query, $filters)
     {
         return $filters->apply($query);
 
     }
 
+    /**
+     * @return int
+     */
     public function getReplyCountAttribute()
     {
         return $this->replies()->count();
 
     }
 
+    /**
+     * @param null $userId
+     * @return $this
+     */
     public function subscribe($userId = null): Thread
     {
         $this->subscriptions()
@@ -100,6 +139,9 @@ class Thread extends Model
         return $this;
     }
 
+    /**
+     * @param null $userId
+     */
     public function unsubscribe($userId = null)
     {
         $this->subscriptions()
@@ -107,6 +149,9 @@ class Thread extends Model
             ->delete();
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function subscriptions()
     {
        return $this->hasMany(ThreadSubscription::class);
@@ -136,6 +181,37 @@ class Thread extends Model
         $key = $user->visitedThreadCacheKey($this);
 
         return $this->updated_at > cache($key);
+    }
+
+    /**
+     * @return $this
+     */
+    public function recordVisits(): Thread
+    {
+        Redis::incr($this->visitsCacheKeys());
+
+        return $this; // In case we want to continue chaining
+    }
+
+    /**
+     *
+     */
+    public function visits()
+    {
+        return Redis::get($this->visitsCacheKeys()) ?? 0;
+    }
+
+    /**
+     *
+     */
+    public function resetVisits(): void
+    {
+        Redis::del($this->visitsCacheKeys());
+    }
+
+    protected function visitsCacheKeys(): string
+    {
+        return "threads.{$this->id}.visits";
     }
 
 }
