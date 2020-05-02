@@ -184,34 +184,10 @@ class Thread extends Model
     }
 
     /**
-     * @return $this
+     * @return Visits
      */
-    public function recordVisits(): Thread
+    public function visits(): Visits
     {
-        Redis::incr($this->visitsCacheKeys());
-
-        return $this; // In case we want to continue chaining
+        return new Visits($this);
     }
-
-    /**
-     *
-     */
-    public function visits()
-    {
-        return Redis::get($this->visitsCacheKeys()) ?? 0;
-    }
-
-    /**
-     *
-     */
-    public function resetVisits(): void
-    {
-        Redis::del($this->visitsCacheKeys());
-    }
-
-    protected function visitsCacheKeys(): string
-    {
-        return "threads.{$this->id}.visits";
-    }
-
 }
