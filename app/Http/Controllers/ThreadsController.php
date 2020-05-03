@@ -10,6 +10,7 @@ use App\Trending;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Str;
 
 class ThreadsController extends Controller
 {
@@ -76,6 +77,7 @@ class ThreadsController extends Controller
             'channel_id' => request('channel_id'),
             'title'      => request('title'),
             'body'       => request('body'),
+            'slug'       => request('body'),
         ]);
 
         return redirect($thread->path())

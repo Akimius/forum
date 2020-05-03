@@ -7,6 +7,7 @@ use App\Notifications\ThreadWasUpdated;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Str;
 use phpDocumentor\Reflection\Types\This;
 
 class Thread extends Model
@@ -54,7 +55,7 @@ class Thread extends Model
      */
     public function path()
     {
-        return "/threads/{$this->channel->slug}/{$this->id}";
+        return "/threads/{$this->channel->slug}/{$this->slug}";
     }
 
     /**
@@ -189,5 +190,46 @@ class Thread extends Model
     public function visits(): Visits
     {
         return new Visits($this);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
+
+    /**
+     * Set the proper slug attribute.
+     *
+     * @param string $value
+     */
+    public function setSlugAttribute($value):void
+    {
+        if (static::whereSlug($slug = Str::slug($value))->exists()) {
+            $slug = $this->incrementSlug($slug);
+        }
+
+        $this->attributes['slug'] = $slug;
+    }
+
+    /**
+     * Increment a slug's suffix.
+     *
+     * @param  string $slug
+     * @return string
+     */
+    protected function incrementSlug($slug): string
+    {
+        $max = static::whereTitle($this->title)->latest('id')->value('slug');
+
+        if (is_numeric($max[-1])) {
+            return preg_replace_callback('/(\d+)$/', static function ($matches) {
+                return $matches[1] + 1;
+            }, $max);
+        }
+
+        return "{$slug}-2";
     }
 }

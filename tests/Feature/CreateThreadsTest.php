@@ -9,6 +9,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Channel;
 
 class CreateThreadsTest extends TestCase
 {
@@ -79,6 +80,24 @@ class CreateThreadsTest extends TestCase
 
         $this->publishThread(['channel_id' => 3])
             ->assertSessionHasErrors('channel_id');
+    }
+
+    /** @test */
+    function a_thread_requires_a_unique_slug()
+    {
+        $this->signIn();
+
+        $thread = create(Thread::class, ['title' => 'Foo Title', 'slug' => 'foo-title']);
+
+        $this->assertEquals($thread->fresh()->slug, 'foo-title');
+
+        $this->post(route('threads.store'), $thread->toArray());
+
+        $this->assertTrue(Thread::whereSlug('foo-title-2')->exists());
+
+        $this->post(route('threads.store'), $thread->toArray());
+
+        $this->assertTrue(Thread::whereSlug('foo-title-3')->exists());
     }
 
     /** @test */

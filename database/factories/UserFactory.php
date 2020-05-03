@@ -6,6 +6,7 @@ use App\Notifications\ThreadWasUpdated;
 use App\User;
 use Faker\Generator as Faker;
 use Illuminate\Notifications\DatabaseNotification;
+use Illuminate\Support\Str;
 use Ramsey\Uuid\Uuid;
 
 /*
@@ -30,6 +31,9 @@ $factory->define(App\User::class, function (Faker $faker) {
 });
 
 $factory->define(App\Thread::class, function (Faker $faker) {
+
+    $title = $faker->sentence;
+
     return [
 
         'user_id' => function() {
@@ -39,8 +43,9 @@ $factory->define(App\Thread::class, function (Faker $faker) {
             return factory(Channel::class)->create()->id;
         },
 
-        'title' => $faker->sentence,
+        'title' => $title,
         'body'  => $faker->paragraph,
+        'slug'  => Str::slug($title, '-'),
 
     ];
 });
