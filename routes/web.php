@@ -49,6 +49,8 @@ Route::delete('/threads/{channel}/{thread}/subscriptions', 'ThreadSubscriptionsC
 Route::delete('/replies/{reply}', 'RepliesController@destroy')->name('reply.destroy');
 Route::patch('/replies/{reply}', 'RepliesController@update')->name('reply.edit');
 
+Route::post('/replies/{reply}/best', 'BestRepliesController@store')->name('best-replies.store');
+
 Route::get('/profiles/{user}', 'ProfilesController@show')->name('profile');
 
 

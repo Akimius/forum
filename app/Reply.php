@@ -88,6 +88,16 @@ class Reply extends Model
         );
     }
 
+    /**
+     *
+     *
+     * @return bool
+     */
+    public function isBest(): bool
+    {
+        return (int)$this->thread->best_reply_id === $this->id;
+    }
+
 
 
 }
