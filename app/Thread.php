@@ -43,9 +43,17 @@ class Thread extends Model
 //            $builder->withCount('replies');
 //        });
 
-        static::deleting(function($thread) {
-            $thread->replies->each->delete();
-        });
+        static::deleting(
+            static function ($thread) {
+                $thread->replies->each->delete();
+            }
+        );
+
+        static::created(
+            static function ($thread) {
+                $thread->update(['slug' => $thread->title]);
+            }
+        );
 
     }
 
@@ -205,31 +213,12 @@ class Thread extends Model
      *
      * @param string $value
      */
-    public function setSlugAttribute($value):void
+    public function setSlugAttribute($value): void
     {
         if (static::whereSlug($slug = Str::slug($value))->exists()) {
-            $slug = $this->incrementSlug($slug);
+            $slug = "{$slug}-{$this->id}";
         }
 
         $this->attributes['slug'] = $slug;
-    }
-
-    /**
-     * Increment a slug's suffix.
-     *
-     * @param  string $slug
-     * @return string
-     */
-    protected function incrementSlug($slug): string
-    {
-        $max = static::whereTitle($this->title)->latest('id')->value('slug');
-
-        if (is_numeric($max[-1])) {
-            return preg_replace_callback('/(\d+)$/', static function ($matches) {
-                return $matches[1] + 1;
-            }, $max);
-        }
-
-        return "{$slug}-2";
     }
 }
