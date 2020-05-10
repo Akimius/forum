@@ -1,7 +1,9 @@
 <template>
     <div>
     <div :id="'reply-'+id" class="card mb-3">
-        <div class="card-header">
+        <div class="card-header"
+             :class="isBest ? 'bg-warning' : ''"
+        >
             <div class="level">
                 <h5 class="flex">
                     <a :href="'/profiles/' + data.owner.name"
@@ -31,9 +33,14 @@
         </div>
 
 <!--        @can('update', $reply)-->
-        <div class="card-footer level" v-if="canUpdate">
-            <button class="btn btn-secondary btn-sm mr-2" @click="editing = true">Edit</button>
-            <button class="btn btn-danger btn-sm mr-2" @click="destroy()">DELETE</button>
+        <div class="card-footer level">
+            <div v-if="canUpdate" >
+                <button class="btn btn-secondary btn-sm mr-2" @click="editing = true">Edit</button>
+                <button class="btn btn-danger btn-sm mr-2" @click="destroy()">DELETE</button>
+            </div>
+            <div>
+                <button class="btn btn-primary btn-sm ml-auto" @click="markBestReply()" v-show="!isBest">Best Reply?</button>
+            </div>
         </div>
 <!--        @endcan-->
     </div>
@@ -65,10 +72,10 @@
         },
         data() {
             return {
-
                 editing: false,
                 id: this.data.id,
-                body: this.data.body
+                body: this.data.body,
+                isBest: false
             };
         },
 
@@ -95,6 +102,10 @@
                 // $(this.$el).fadeOut(1000, () => {
                 //     flash('Your reply has been deleted.');
                 // });
+            },
+
+            markBestReply() {
+                this.isBest = true;
             }
         }
     }
