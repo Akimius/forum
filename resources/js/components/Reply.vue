@@ -34,12 +34,12 @@
 
 <!--        @can('update', $reply)-->
         <div class="card-footer level">
-            <div v-if="canUpdate" >
+            <div v-if="authorize('updateReply', reply)" >
                 <button class="btn btn-secondary btn-sm mr-2" @click="editing = true">Edit</button>
                 <button class="btn btn-danger btn-sm mr-2" @click="destroy()">DELETE</button>
             </div>
-            <div>
-                <button class="btn btn-primary btn-sm ml-auto" @click="markBestReply()" v-show="!isBest">Best Reply?</button>
+            <div class="ml-auto">
+                <button class="btn btn-primary btn-sm " @click="markBestReply()" v-show="!isBest">Best Reply?</button>
             </div>
         </div>
 <!--        @endcan-->
@@ -59,23 +59,24 @@
         components: {Favorite, Replies},
 
         computed: {
-          signedIn() {
-              return window.App.signedIn;
-          },
+          // signedIn() {
+          //     return window.App.signedIn;
+          // },
             ago() {
               return moment(this.data.created_at).fromNow() + '...';
             },
 
-            canUpdate() {
-              return this.authorize(user => this.data.user_id === user.id);
-            }
+            // canUpdate() {
+            //   return this.authorize(user => this.data.user_id === user.id);
+            // }
         },
         data() {
             return {
                 editing: false,
                 id: this.data.id,
                 body: this.data.body,
-                isBest: false
+                isBest: false,
+                reply: this.data,
             };
         },
 

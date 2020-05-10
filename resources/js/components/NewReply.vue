@@ -32,9 +32,9 @@
         },
 
         computed: {
-          signedIn() {
-             return window.App.signedIn;
-          }
+          // signedIn() {
+          //    return window.App.signedIn;
+          // }
         },
 
         methods: {
