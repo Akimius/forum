@@ -70,12 +70,19 @@
             //   return this.authorize(user => this.data.user_id === user.id);
             // }
         },
+
+        created() {
+            window.events.$on('best-reply-selected', id => {
+                this.isBest = (id === this.id);
+            });
+        },
+
         data() {
             return {
                 editing: false,
                 id: this.data.id,
                 body: this.data.body,
-                isBest: false,
+                isBest: this.data.isBest,
                 reply: this.data,
             };
         },
@@ -90,7 +97,6 @@
                         flash(error.response.data, 'danger');
                     })
                 ;
-
                 this.editing = false;
 
                 flash('Updated reply')
@@ -104,10 +110,18 @@
                 //     flash('Your reply has been deleted.');
                 // });
             },
-
             markBestReply() {
-                this.isBest = true;
-            }
+                axios
+                    .post('/replies/' + this.data.id + '/best', {
+                    })
+                    .catch(error => {
+                        flash(error.response.data, 'danger');
+                    })
+                ;
+                window.events.$emit('best-reply-selected', this.data.id)
+
+                flash('Reply: '+ this.data.body +' marked as best')
+            },
         }
     }
 </script>
