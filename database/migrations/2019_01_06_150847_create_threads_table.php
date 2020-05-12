@@ -24,6 +24,12 @@ class CreateThreadsTable extends Migration
             $table->string('title');
             $table->text('body');
             $table->timestamps();
+
+            // 2nd option at Mysql level
+            $table->foreign('best_reply_id')
+                ->references('id')
+                ->on('replies')
+                ->onDelete('set null');
         });
     }
 

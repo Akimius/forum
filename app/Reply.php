@@ -22,11 +22,15 @@ class Reply extends Model
 
         parent::boot();
 
-        static::created(function ($reply) {
+        static::created(static function ($reply) {
             $reply->thread->increment('replies_count');
         });
 
-        static::deleted(function ($reply) {
+        static::deleted(static function ($reply) {
+            // 1st option at PHP level
+//            if ($reply->isBest()) {
+//                $reply->thread->update(['best_reply_id' => null]);
+//            }
             $reply->thread->decrement('replies_count');
         });
     }

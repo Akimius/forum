@@ -2240,12 +2240,19 @@ __webpack_require__.r(__webpack_exports__);
       return moment__WEBPACK_IMPORTED_MODULE_2___default()(this.data.created_at).fromNow() + '...';
     }
   },
+  created: function created() {
+    var _this = this;
+
+    window.events.$on('best-reply-selected', function (id) {
+      _this.isBest = id === _this.id;
+    });
+  },
   data: function data() {
     return {
       editing: false,
       id: this.data.id,
       body: this.data.body,
-      isBest: false,
+      isBest: this.data.isBest,
       reply: this.data
     };
   },
@@ -2266,7 +2273,11 @@ __webpack_require__.r(__webpack_exports__);
       // });
     },
     markBestReply: function markBestReply() {
-      this.isBest = true;
+      axios.post('/replies/' + this.data.id + '/best', {}).catch(function (error) {
+        flash(error.response.data, 'danger');
+      });
+      window.events.$emit('best-reply-selected', this.data.id);
+      flash('Reply: ' + this.data.body + ' marked as best');
     }
   }
 });
@@ -6939,7 +6950,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
