@@ -6,14 +6,14 @@
         >
             <div class="level">
                 <h5 class="flex">
-                    <a :href="'/profiles/' + data.owner.name"
-                    v-text="data.owner.name">
+                    <a :href="'/profiles/' + reply.owner.name"
+                    v-text="reply.owner.name">
 
                     </a> said <span v-text="ago"></span>
                 </h5>
 <!--                @if(auth()->check())-->
                 <div v-if="signedIn">
-                    <favorite :reply="data"></favorite>
+                    <favorite :reply="reply"></favorite>
                 </div>
 <!--                @endif-->
             </div>
@@ -33,13 +33,16 @@
         </div>
 
 <!--        @can('update', $reply)-->
-        <div class="card-footer level">
-            <div v-if="authorize('updateReply', reply)" >
+        <div class="card-footer level" v-if="authorize('owns', reply) || authorize('owns', reply.thread)">
+            <div v-if="authorize('owns', reply)" >
                 <button class="btn btn-secondary btn-sm mr-2" @click="editing = true">Edit</button>
                 <button class="btn btn-danger btn-sm mr-2" @click="destroy()">DELETE</button>
             </div>
             <div class="ml-auto">
-                <button class="btn btn-primary btn-sm " @click="markBestReply()" v-show="!isBest">Best Reply?</button>
+                <button class="btn btn-primary btn-sm " @click="markBestReply()"
+                        v-if="authorize('owns', reply.thread)">
+                    Best Reply?
+                </button>
             </div>
         </div>
 <!--        @endcan-->
@@ -54,7 +57,7 @@
 
     export default {
 
-        props: ['data'],
+        props: ['reply'],
 
         components: {Favorite, Replies},
 
@@ -63,11 +66,11 @@
           //     return window.App.signedIn;
           // },
             ago() {
-              return moment(this.data.created_at).fromNow() + '...';
+              return moment(this.reply.created_at).fromNow() + '...';
             },
 
             // canUpdate() {
-            //   return this.authorize(user => this.data.user_id === user.id);
+            //   return this.authorize(user => this.reply.user_id === user.id);
             // }
         },
 
@@ -80,17 +83,16 @@
         data() {
             return {
                 editing: false,
-                id: this.data.id,
-                body: this.data.body,
-                isBest: this.data.isBest,
-                reply: this.data,
+                id: this.id,
+                body: this.reply.body,
+                isBest: this.reply.isBest,
             };
         },
 
         methods: {
             update() {
                 axios
-                    .patch('/replies/' + this.data.id, {
+                    .patch('/replies/' + this.id, {
                     body: this.body
                 })
                     .catch(error => {
@@ -103,24 +105,24 @@
             },
 
             destroy() {
-                axios.delete('/replies/' + this.data.id);
+                axios.delete('/replies/' + this.id);
 
-                this.$emit('deleted', this.data.id);
+                this.$emit('deleted', this.id);
                 // $(this.$el).fadeOut(1000, () => {
                 //     flash('Your reply has been deleted.');
                 // });
             },
             markBestReply() {
                 axios
-                    .post('/replies/' + this.data.id + '/best', {
+                    .post('/replies/' + this.id + '/best', {
                     })
                     .catch(error => {
                         flash(error.response.data, 'danger');
                     })
                 ;
-                window.events.$emit('best-reply-selected', this.data.id)
+                window.events.$emit('best-reply-selected', this.id)
 
-                flash('Reply: '+ this.data.body +' marked as best')
+                flash('Reply: '+ this.body +' marked as best')
             },
         }
     }
