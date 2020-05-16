@@ -31,10 +31,10 @@ class User extends Authenticatable
         'password', 'remember_token', 'email',
     ];
 
-    public function isAdmin(): bool
-    {
-        return $this->id === 1;
-    }
+//    public function isAdmin(): bool
+//    {
+//        return $this->id === 1;
+//    }
 
     public function getRouteKeyName(): string
     {
@@ -108,6 +108,16 @@ class User extends Authenticatable
     public function getAvatarPathAttribute($avatar): string
     {
         return asset($avatar ?: '/avatars/default.png');
+    }
+
+    /**
+     * Determine if the user is an administrator.
+     *
+     * @return bool
+     */
+    public function isAdmin()
+    {
+        return in_array($this->name, ['JohnDoe', 'JaneDoe']);
     }
 
 }

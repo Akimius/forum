@@ -10,6 +10,7 @@ use App\Thread;
 use App\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Gate;
 
 class RepliesController extends Controller
@@ -49,11 +50,14 @@ class RepliesController extends Controller
      * @param $channelId
      * @param Thread $thread
      * @param CreatePostRequest $form
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return Model
      */
-    public function store($channelId, Thread $thread, CreatePostRequest $form)
+    public function store($channelId, Thread $thread, CreatePostRequest $form): Model
     {
         //return $form->persist($thread);
+        if ($thread->locked) {
+            return response('Thread is locked', 422);
+        }
         return $thread->addReply(
             [
                 'body' => request('body'),
@@ -65,6 +69,8 @@ class RepliesController extends Controller
     public function destroy(Reply $reply)
     {
         $this->authorize('update', $reply);
+
+        $reply->thread->update(['best_reply_id' => null]);
 
         $reply->delete();
 
