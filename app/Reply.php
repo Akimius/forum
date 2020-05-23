@@ -28,9 +28,9 @@ class Reply extends Model
 
         static::deleted(static function ($reply) {
             // 1st option at PHP level
-//            if ($reply->isBest()) {
-//                $reply->thread->update(['best_reply_id' => null]);
-//            }
+            if ($reply->isBest()) {
+                $reply->thread->update(['best_reply_id' => null]);
+            }
             $reply->thread->decrement('replies_count');
         });
     }

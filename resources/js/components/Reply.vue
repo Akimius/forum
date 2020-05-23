@@ -34,6 +34,7 @@
 
 <!--        @can('update', $reply)-->
         <div class="card-footer level" v-if="authorize('owns', reply) || authorize('owns', reply.thread)">
+
             <div v-if="authorize('owns', reply)" >
                 <button class="btn btn-secondary btn-sm mr-2" @click="editing = true">Edit</button>
                 <button class="btn btn-danger btn-sm mr-2" @click="destroy()">DELETE</button>

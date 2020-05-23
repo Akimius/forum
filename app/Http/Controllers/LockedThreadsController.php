@@ -12,8 +12,18 @@ class LockedThreadsController extends Controller
      *
      * @param \App\Thread $thread
      */
-    public function store(Thread $thread)
+    public function store(Thread $thread): void
     {
-        $thread->lock();
+        $thread->lockThread();
+    }
+
+    /**
+     * Unlock the given thread.
+     *
+     * @param \App\Thread $thread
+     */
+    public function destroy(Thread $thread): void
+    {
+        $thread->unlockThread();
     }
 }

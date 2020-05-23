@@ -30,6 +30,10 @@ class Thread extends Model
      */
     protected $appends = ['isSubscribedTo'];
 
+    protected $casts = [
+        'locked' => 'boolean'
+    ];
+
     /**
      * Boot the model.
      */
@@ -38,7 +42,6 @@ class Thread extends Model
         parent::boot();
 
         // no need after adding column
-
 //        static::addGlobalScope('replyCount', function ($builder) {
 //            $builder->withCount('replies');
 //        });
@@ -231,10 +234,17 @@ class Thread extends Model
         $this->save();
     }
 
-    /**
-     */
-    public function lock(): void
+    public function lockThread(): void
     {
         $this->update(['locked' => true]);
+    }
+
+    /**
+     * Unlock the given thread.
+     *
+     */
+    public function unlockThread(): void
+    {
+        $this->update(['locked' => false]);
     }
 }

@@ -2,12 +2,10 @@
 
 namespace Tests\Feature;
 
-use App\Thread;
-use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Thread;
+use App\User;
 
 class LockThreadsTest extends TestCase
 {
@@ -24,11 +22,11 @@ class LockThreadsTest extends TestCase
 
         $this->post(route('locked-threads.store', $thread))->assertStatus(403);
 
-        $this->assertFalse((bool)$thread->fresh()->locked);
+        $this->assertFalse($thread->fresh()->locked);
     }
 
     /** @test */
-    function administrators_can_lock_threads()
+    public function administrators_can_lock_threads(): void
     {
         $this->signIn(factory(User::class)->states('administrator')->create());
 
@@ -36,6 +34,31 @@ class LockThreadsTest extends TestCase
 
         $this->post(route('locked-threads.store', $thread));
 
-        $this->assertTrue((bool)$thread->fresh()->locked, 'Failed asserting that the thread was locked.');
+        $this->assertTrue($thread->fresh()->locked, 'Failed asserting that the thread was locked.');
+    }
+
+    /** @test */
+    public function administrators_can_unlock_threads(): void
+    {
+        $this->signIn(factory(User::class)->states('administrator')->create());
+
+        $thread = create(Thread::class, ['user_id' => auth()->id(), 'locked' => false]);
+
+        $this->delete(route('locked-threads.destroy', $thread));
+
+        $this->assertFalse($thread->fresh()->locked, 'Failed asserting that the thread was unlocked.');
+    }
+
+    /** @test */
+    public function once_locked_a_thread_may_not_receive_new_replies(): void
+    {
+        $this->signIn();
+
+        $thread = create(Thread::class, ['locked' => true]);
+
+        $this->post($thread->path() . '/replies', [
+            'body' => 'Foobar',
+            'user_id' => auth()->id()
+        ])->assertStatus(422);
     }
 }
