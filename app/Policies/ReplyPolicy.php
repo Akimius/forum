@@ -28,7 +28,7 @@ class ReplyPolicy
      */
     public function update(User $user, Reply $reply): bool
     {
-        return $reply->user_id === $user->id;
+        return (int)$reply->user_id === (int)$user->id;
     }
 
     /**

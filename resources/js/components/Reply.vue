@@ -39,7 +39,7 @@
                 <button class="btn btn-secondary btn-sm mr-2" @click="editing = true">Edit</button>
                 <button class="btn btn-danger btn-sm mr-2" @click="destroy()">DELETE</button>
             </div>
-            <div class="ml-auto">
+            <div class="ml-auto" v-if="!isBest">
                 <button class="btn btn-primary btn-sm " @click="markBestReply()"
                         v-if="authorize('owns', reply.thread)">
                     Best Reply?
@@ -84,7 +84,7 @@
         data() {
             return {
                 editing: false,
-                id: this.id,
+                id: this.reply.id,
                 body: this.reply.body,
                 isBest: this.reply.isBest,
             };
@@ -115,7 +115,7 @@
             },
             markBestReply() {
                 axios
-                    .post('/replies/' + this.id + '/best', {
+                    .post('/replies/' + this.reply.id + '/best', {
                     })
                     .catch(error => {
                         flash(error.response.data, 'danger');

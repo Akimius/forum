@@ -50,9 +50,9 @@ class RepliesController extends Controller
      * @param $channelId
      * @param Thread $thread
      * @param CreatePostRequest $form
-     * @return Model
+     * @return Application|ResponseFactory|Model|\Illuminate\Http\Response
      */
-    public function store($channelId, Thread $thread, CreatePostRequest $form): Model
+    public function store($channelId, Thread $thread, CreatePostRequest $form)
     {
         //return $form->persist($thread);
         if ($thread->locked) {

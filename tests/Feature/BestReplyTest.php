@@ -14,14 +14,15 @@ class BestReplyTest extends TestCase
 {
     use DatabaseMigrations;
 
+
     /** @test */
     public function a_thread_creator_may_mark_any_reply_as_the_best_reply(): void
     {
         $this->signIn();
 
-        $thread = create(Thread::class);
+        $thread = create(Thread::class, ['user_id' => auth()->id()]);
 
-        $replies = factory(Reply::class, 2)->create(['thread_id' => $thread->id]);
+        $replies = create(Reply::class, ['thread_id' => $thread->id], 2);
 
         $this->assertFalse($replies[1]->isBest());
 
@@ -29,6 +30,8 @@ class BestReplyTest extends TestCase
 
         $this->assertTrue($replies[1]->fresh()->isBest());
     }
+
+
 
     /** @test */
     public function only_the_thread_creator_may_mark_a_reply_as_best(): void

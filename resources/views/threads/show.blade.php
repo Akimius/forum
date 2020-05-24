@@ -56,7 +56,7 @@
                         <div class="card-footer">
                             <subscribe-button :active="{{ json_encode($thread->isSubscribedTo) }}" v-if="signedIn"></subscribe-button>
 
-                            <button class="btn btn-default"
+                            <button class="btn btn-primary"
                                     v-if="authorize('isAdmin')"
                                     @click="toggleLock"
                                     v-text="locked ? 'Unlock' : 'Lock'">
