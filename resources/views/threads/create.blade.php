@@ -52,6 +52,10 @@
                                         </ul>
                                     @endif
                                 </div>
+
+                                <div class="form-group">
+                                    <div class="g-recaptcha" data-sitekey="6LeOnfsUAAAAAB8_e8a4dre6SPJ1kCuoqw1yk_WT"></div>
+                                </div>
                             </form>
                     </div>
                 </div>

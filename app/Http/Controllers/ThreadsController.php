@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Channel;
 use App\Filters\ThreadFilters;
+use App\Rules\Recaptcha;
 use App\Rules\SpamFree;
 use App\Thread;
 use App\Trending;
@@ -11,6 +12,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Str;
+use Zttp\Zttp;
 
 class ThreadsController extends Controller
 {
@@ -55,7 +57,6 @@ class ThreadsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
      * @return Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      * @throws \Illuminate\Validation\ValidationException
      */
@@ -68,7 +69,8 @@ class ThreadsController extends Controller
                     ['required', 'min:3', new SpamFree()],
                 'body' =>
                     ['required', 'min:3', new SpamFree()],
-                'channel_id' => 'required|exists:channels,id'
+                'channel_id'           => 'required|exists:channels,id',
+                'g-recaptcha-response' => ['required', new Recaptcha()]
             ]
         );
 
@@ -77,7 +79,7 @@ class ThreadsController extends Controller
             'channel_id' => request('channel_id'),
             'title'      => request('title'),
             'body'       => request('body'),
-            //'slug'       => request('body'),
+            //'slug'     => request('body'),
         ]);
 
         // Only for testing purposes ???
