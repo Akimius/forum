@@ -8,6 +8,7 @@ use App\Rules\Recaptcha;
 use App\Rules\SpamFree;
 use App\Thread;
 use App\Trending;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
@@ -127,13 +128,24 @@ class ThreadsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Thread  $thread
-     * @return \Illuminate\Http\Response
+     * @param $channel
+     * @param \App\Thread $thread
+     * @return Thread
+     * @throws AuthorizationException
      */
-    public function update(Request $request, Thread $thread)
+    public function update($channel, Thread $thread): Thread
     {
-        //
+        $this->authorize('update', $thread);
+
+        $thread->update(request()->validate(
+            [
+                'title' => ['required'],
+                'body'  => ['required'],
+                //'g-recaptcha-response' => ['required', new Recaptcha()]
+            ]
+        ));
+
+        return $thread;
     }
 
     /**
